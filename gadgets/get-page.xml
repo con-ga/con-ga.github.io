@@ -11,7 +11,7 @@
 			}
 			var params={};
 			params[gadgets.io.RequestParameters.CONTENT_TYPE]=
-			gadgets.io.ContentType.HTML;
+			gadgets.io.ContentType.TEXT;
 			gadgets.io.makeRequest("http://www.vnn.vn",content,params);
 			</script>
 		]]>
