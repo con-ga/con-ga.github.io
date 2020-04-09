@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs title="Tin tức"/>
+	<Content type="html">
+		<![CDATA[
+			<div id="tintuc" style="background:yellow"/>
+			<script>
+			function content(xml)
+			{
+				tintuc.innerHTML=xml;
+			}
+			var params={};
+			params[gadgets.io.RequestParameters.CONTENT_TYPE]=
+			gadgets.io.ContentType.HTML;
+			gadgets.io.makeRequest("http://www.vnn.vn",content,params);
+			</script>
+		]]>
+	</Content>
+</Module>
