@@ -1,0 +1,21 @@
+<html>
+<body>
+<div id=div></div>
+<script type="text/javascript">
+async function display(url,div)
+{
+	let response=await fetch(url);
+	if(response.ok)
+	{
+		let text=await response.text();
+		div.innerHTML=text;
+	}
+	else
+	{
+		div.innerHTML="Http error:"+response.status;
+	}	
+}
+display("http://vnexpress.vn",div);
+</script>
+</body>
+</html>
