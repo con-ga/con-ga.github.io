@@ -9,10 +9,12 @@ async function display(url,div)
 	{
 		let text=await response.text();
 		div.innerHTML=text;
+alert("text :"+text);
 	}
 	else
 	{
 		div.innerHTML="Http error:"+response.status;
+alert("http error: "+response.status);
 	}	
 }
 display("http://vnexpress.vn",div);
