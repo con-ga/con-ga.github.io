@@ -10,8 +10,7 @@
 				tintuc.innerHTML=xml;
 			}
 			var params={};
-			params[gadgets.io.RequestParameters.CONTENT_TYPE]=
-			gadgets.io.ContentType.TEXT;
+			params[gadgets.io.RequestParameters.CONTENT_TYPE]=gadgets.io.ContentType.TEXT;
 			gadgets.io.makeRequest("http://www.vnn.vn",content,params);
 			</script>
 		]]>
