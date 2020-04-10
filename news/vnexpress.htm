@@ -22,7 +22,7 @@ async function display(url,div)
 	{
 		txt=e.name+":"+e.message;
 	}
-	div.innerText=txt;	
+	div.innerText=url+";"+txt;	
 }
 display("/gadgets/get-page.xml",div);
 //display("http://vnexpress.vn",div);
