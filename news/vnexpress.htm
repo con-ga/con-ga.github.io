@@ -4,18 +4,25 @@
 <script type="text/javascript">
 async function display(url,div)
 {
+	let txt;
+	try
+	{
 	let response=await fetch(url);
 	if(response.ok)
 	{
 		let text=await response.text();
-		div.innerHTML=text;
-alert("text :"+text);
+		txt=text;
 	}
 	else
 	{
-		div.innerHTML="Http error:"+response.status;
-alert("http error: "+response.status);
-	}	
+		txt="Http error:"+response.status;
+	}
+	}
+	catch(e)
+	{
+		txt=e.name+":"+e.message;
+	}
+	div.innerHTML=txt;	
 }
 display("http://vnexpress.vn",div);
 </script>
