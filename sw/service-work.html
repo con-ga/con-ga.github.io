@@ -1,9 +1,9 @@
 <body>
 <script type="text/javascript">
-alert("first load");
+alert("first load 2");
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/service-work.js').then(function(registration) {
+    navigator.serviceWorker.register('/sw/service-work.js').then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }, function(err) {
