@@ -28,7 +28,7 @@ Your project must also have enabled the appropriate API for this request.
       xhr.open('GET',
           'https://www.googleapis.com/drive/v3/about?fields=user&' +
           'access_token=' + params['access_token']);
-          alert("÷"+params["access_token"];);
+          alert("÷"+params["access_token"]);
       xhr.onreadystatechange = function (e) {
         if (xhr.readyState === 4 && xhr.status === 200) {
           alert(xhr.response);
