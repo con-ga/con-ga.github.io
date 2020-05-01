@@ -28,6 +28,7 @@ Your project must also have enabled the appropriate API for this request.
       xhr.open('GET',
           'https://www.googleapis.com/drive/v3/about?fields=user&' +
           'access_token=' + params['access_token']);
+      xhr.open("GET","https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token="+params['access_token']);
       alert("÷"+params["access_token"]);
       xhr.onreadystatechange = function (e) {
         alert("ready state "+xhr.readyState+" "+xhr.status);
