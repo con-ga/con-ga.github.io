@@ -30,6 +30,7 @@ Your project must also have enabled the appropriate API for this request.
           'access_token=' + params['access_token']);
       alert("÷"+params["access_token"]);
       xhr.onreadystatechange = function (e) {
+        alert("ready state "+xhr.readyState+" "+xhr.status);
         if (xhr.readyState === 4 && xhr.status === 200) {
           alert(xhr.response);
         } else if (xhr.readyState === 4 && xhr.status === 401) {
@@ -79,4 +80,4 @@ Your project must also have enabled the appropriate API for this request.
 </script>
 
 <button onclick="trySampleRequest();">Try sample request</button>
-<script>alert("3");</script></body></html>
+<script>alert("4");</script></body></html>
