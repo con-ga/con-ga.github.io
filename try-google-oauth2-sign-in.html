@@ -42,12 +42,13 @@ Your project must also have enabled the appropriate API for this request.
       oauth2SignIn();
       }
       };
+      alert(jsonData);
       xhr.send(jsonData);
       } else {
       oauth2SignIn();
       }
   }
-  catch(err){alert(err.name+":"+err.description);};
+  catch(err){alert(err.name+" : "+err.description);};
   }
   
 
@@ -84,7 +85,7 @@ Your project must also have enabled the appropriate API for this request.
     document.body.appendChild(form);
     form.submit();
   }
- function newBlogPage(title,content)
+ /*function newBlogPage(title,content)
  {
  let url="https://www.googleapis.com/blogger/v3/blogs/6358930412727843439/posts";
  let xhr=new XMLHttpRequest();
@@ -94,8 +95,8 @@ Your project must also have enabled the appropriate API for this request.
  let jsonData='{"kind": "blogger#post",	"blog": {"id": "8070105920543249955"	},"title": "A new post",	"content": "With <b>exciting</b> content..."	}';
  xhr.send(jsonData);
  alert(xhr.responseText);
- }
+ }*/
 </script>
 
 <button onclick="trySampleRequest();">Try sample request</button>
-<script>alert("7");</script></body></html>
+<script>alert("9");</script></body></html>
