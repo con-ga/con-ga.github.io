@@ -31,8 +31,9 @@ Your project must also have enabled the appropriate API for this request.
       let xhr=new XMLHttpRequest();
       //xhr.open("POST",url,true);
       //xhr.setRequestHeader("Authorization","278617096894-33v45ads5k1sgkdlmtbq2fuedjekj7ne.apps.googleusercontent.com");
-      xhr.setRequestHeader("Content-Type","application/json");
+      //xhr.setRequestHeader("Content-Type","application/json");
       xhr.open("POST",url/*,true*/);
+      xhr.setRequestHeader("Content-Type","application/json");
       let jsonData='{"kind": "blogger#post",	"blog": {"id": "8070105920543249955"	},"title": "A new post",	"content": "With <b>exciting</b> content..."	}';
       //xhr.send(jsonData);
       xhr.onerror=function(err)
@@ -106,4 +107,4 @@ Your project must also have enabled the appropriate API for this request.
 </script>
 
 <button onclick="trySampleRequest();">Try sample request</button>
-<script>alert("2");</script></body></html>
+<script>alert("3");</script></body></html>
