@@ -22,6 +22,7 @@ Your project must also have enabled the appropriate API for this request.
   // If there's an access token, try an API request.
   // Otherwise, start OAuth 2.0 flow.
   function trySampleRequest() {
+try{
     var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
     if (params && params['access_token']) {
       let url="https://www.googleapis.com/blogger/v3/blogs/6358930412727843439/posts?access_token=" + params['access_token'];
@@ -65,6 +66,7 @@ Your project must also have enabled the appropriate API for this request.
       oauth2SignIn();
     }*/
   }
+} catch(err){alert(e.name+"\n"+e.description)};
 
   /*
    * Create form to request access token from Google's OAuth 2.0 server.
