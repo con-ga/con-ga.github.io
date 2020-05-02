@@ -30,9 +30,13 @@ Your project must also have enabled the appropriate API for this request.
       //xhr.open("POST",url,true);
       //xhr.setRequestHeader("Authorization","278617096894-33v45ads5k1sgkdlmtbq2fuedjekj7ne.apps.googleusercontent.com");
       xhr.setRequestHeader("Content-Type","application/json");
-      xhr.open("POST",url,true);
+      xhr.open("POST",url/*,true*/);
       let jsonData='{"kind": "blogger#post",	"blog": {"id": "8070105920543249955"	},"title": "A new post",	"content": "With <b>exciting</b> content..."	}';
       //xhr.send(jsonData);
+      xhr.onerror=function(err)
+      {
+      	alert("xmlhttprequest error "+err.name+" "+err.description);
+      };
       xhr.onreadystatechange = function (e) {
       alert("ready state "+xhr.readyState+" "+xhr.status);
       if (xhr.readyState === 4 && xhr.status === 200) {
