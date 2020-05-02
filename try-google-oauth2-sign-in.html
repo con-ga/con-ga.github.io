@@ -24,7 +24,28 @@ Your project must also have enabled the appropriate API for this request.
   function trySampleRequest() {
     var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
     if (params && params['access_token']) {
-      var xhr = new XMLHttpRequest();
+      let url="https://www.googleapis.com/blogger/v3/blogs/6358930412727843439/posts?access_token=" + params['access_token'];
+      let xhr=new XMLHttpRequest();
+      //xhr.open("POST",url,true);
+      //xhr.setRequestHeader("Authorization","278617096894-33v45ads5k1sgkdlmtbq2fuedjekj7ne.apps.googleusercontent.com");
+      xhr.setRequestHeader("Content-Type","application/json");
+      xhr.open("POST",url,true);
+      let jsonData='{"kind": "blogger#post",	"blog": {"id": "8070105920543249955"	},"title": "A new post",	"content": "With <b>exciting</b> content..."	}';
+      //xhr.send(jsonData);
+      xhr.onreadystatechange = function (e) {
+      alert("ready state "+xhr.readyState+" "+xhr.status);
+      if (xhr.readyState === 4 && xhr.status === 200) {
+      alert(xhr.response);
+      } else if (xhr.readyState === 4 && xhr.status === 401) {
+      // Token invalid, so prompt for user permission.
+      oauth2SignIn();
+      }
+      };
+      xhr.send(jsonData);
+      } else {
+      oauth2SignIn();
+      }
+      /*var xhr = new XMLHttpRequest();
       xhr.open('GET',
           'https://www.googleapis.com/drive/v3/about?fields=user&' +
           'access_token=' + params['access_token']);
@@ -39,10 +60,10 @@ Your project must also have enabled the appropriate API for this request.
           oauth2SignIn();
         }
       };
-      xhr.send(null);
+      xhr.send(jsonData);
     } else {
       oauth2SignIn();
-    }
+    }*/
   }
 
   /*
@@ -78,7 +99,18 @@ Your project must also have enabled the appropriate API for this request.
     document.body.appendChild(form);
     form.submit();
   }
+ function newBlogPage(title,content)
+ {
+ let url="https://www.googleapis.com/blogger/v3/blogs/6358930412727843439/posts";
+ let xhr=new XMLHttpRequest();
+ xhr.open("POST",url,true);
+ xhr.setRequestHeader("Authorization","278617096894-33v45ads5k1sgkdlmtbq2fuedjekj7ne.apps.googleusercontent.com");
+ xhr.setRequestHeader("Content-Type","application/json");
+ let jsonData='{"kind": "blogger#post",	"blog": {"id": "8070105920543249955"	},"title": "A new post",	"content": "With <b>exciting</b> content..."	}';
+ xhr.send(jsonData);
+ alert(xhr.responseText);
+ }
 </script>
 
 <button onclick="trySampleRequest();">Try sample request</button>
-<script>alert("4");</script></body></html>
+<script>alert("6");</script></body></html>
