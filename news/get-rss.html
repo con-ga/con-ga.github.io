@@ -1,7 +1,7 @@
 <html>
 <body>
 <script>
-alert("6");
+alert("8");
 function getRss()
 {
 //let rss=document.getElementById("rss");
@@ -10,7 +10,7 @@ let xhr =new XMLHttpRequest();
 //alert(rss.value);
 xhr.onreadystatechange=function()
 {
-    //alert(this.readyState +" "+this.status);
+    alert(this.readyState +" "+this.status);
     if(this.readyState==4&&this.status==200)
     {
         content.innerText=this.responseText;
