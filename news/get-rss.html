@@ -1,0 +1,27 @@
+<html>
+<body>
+<script>
+alert("1");
+let xhr =new XMLHttpRequest();
+xhr.open("GET",rss);
+xhr.onreadystatechange=function()
+{
+    if(this.readyState==4&&this.status==200)
+    {
+        content.innerHTML=this.responseText;
+    }
+} ;
+xhr.onerror=function()
+{
+    content.innerHTML="xmlhttprequest error";
+} ;
+//xhr.open("GET",rss);
+xhr.send(); 
+</script>
+<form>
+<input type=text value="https://vnexpress.net/rss/tin-moi-nhat.rss" id=rss/>
+<input type=button id=getrss onclick="getRss()"/>  
+</form>
+<div id=content></div>
+</body>   
+</html>
