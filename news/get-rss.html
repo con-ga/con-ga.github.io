@@ -1,7 +1,7 @@
 <html>
 <body>
 <script>
-alert("4");
+alert("5");
 function getRss()
 {
 //let rss=document.getElementById("rss");
@@ -17,9 +17,10 @@ xhr.onreadystatechange=function()
         //alert("Response\n"+this.responseText);
     }
 } ;
-xhr.onerror=function()
+xhr.onerror=function(e)
 {
-    content.innerHTML="xmlhttprequest error";
+    content.innerHTML="xmlhttprequest error\n";
+    content.innerHTML+=e.name+":"+e.description;
 } ;
 //xhr.open("GET",rss);
 xhr.send();
