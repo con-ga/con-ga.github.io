@@ -1,16 +1,19 @@
 <html>
 <body>
 <script>
-alert("2");
+alert("3");
 function getRss()
 {
 let xhr =new XMLHttpRequest();
 xhr.open("GET",rss);
+alert(rss);
 xhr.onreadystatechange=function()
 {
+    alert(this.readyState +" "+this.status);
     if(this.readyState==4&&this.status==200)
     {
         content.innerHTML=this.responseText;
+        alert("Response\n"+this.responseText);
     }
 } ;
 xhr.onerror=function()
