@@ -1,12 +1,12 @@
 <html>
 <body>
 <script>
-alert("5");
+alert("6");
 function getRss()
 {
 //let rss=document.getElementById("rss");
 let xhr =new XMLHttpRequest();
-xhr.open("GET",rss.value);
+//xhr.open("GET",rss.value);
 //alert(rss.value);
 xhr.onreadystatechange=function()
 {
@@ -22,7 +22,7 @@ xhr.onerror=function(e)
     content.innerHTML="xmlhttprequest error\n";
     content.innerHTML+=e.name+":"+e.description;
 } ;
-//xhr.open("GET",rss);
+xhr.open("GET",rss);
 xhr.send();
 } 
 </script>
