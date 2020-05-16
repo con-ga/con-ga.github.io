@@ -1,20 +1,20 @@
 <html>
 <body>
 <script>
-alert("3");
+alert("4");
 function getRss()
 {
-let rss=document.getElementById("rss");
+//let rss=document.getElementById("rss");
 let xhr =new XMLHttpRequest();
 xhr.open("GET",rss.value);
-alert(rss.value);
+//alert(rss.value);
 xhr.onreadystatechange=function()
 {
-    alert(this.readyState +" "+this.status);
+    //alert(this.readyState +" "+this.status);
     if(this.readyState==4&&this.status==200)
     {
         content.innerText=this.responseText;
-        alert("Response\n"+this.responseText);
+        //alert("Response\n"+this.responseText);
     }
 } ;
 xhr.onerror=function()
