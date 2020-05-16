@@ -1,7 +1,9 @@
 <html>
 <body>
 <script>
-alert("1");
+alert("2");
+function getRss()
+{
 let xhr =new XMLHttpRequest();
 xhr.open("GET",rss);
 xhr.onreadystatechange=function()
@@ -16,11 +18,12 @@ xhr.onerror=function()
     content.innerHTML="xmlhttprequest error";
 } ;
 //xhr.open("GET",rss);
-xhr.send(); 
+xhr.send();
+} 
 </script>
 <form>
-<input type=text value="https://vnexpress.net/rss/tin-moi-nhat.rss" id=rss/>
-<input type=button id=getrss onclick="getRss()"/>  
+<input type=text value="http://khoa.unaux.com/rss/get-rss.php" id=rss/>
+<input type=button id=getrss onclick="getRss()" value="Get"/>  
 </form>
 <div id=content></div>
 </body>   
