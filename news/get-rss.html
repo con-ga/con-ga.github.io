@@ -4,15 +4,16 @@
 alert("3");
 function getRss()
 {
+let rss=document.getElementById("rss");
 let xhr =new XMLHttpRequest();
-xhr.open("GET",rss);
-alert(rss);
+xhr.open("GET",rss.value);
+alert(rss.value);
 xhr.onreadystatechange=function()
 {
     alert(this.readyState +" "+this.status);
     if(this.readyState==4&&this.status==200)
     {
-        content.innerHTML=this.responseText;
+        content.innerText=this.responseText;
         alert("Response\n"+this.responseText);
     }
 } ;
@@ -25,9 +26,9 @@ xhr.send();
 } 
 </script>
 <form>
-<input type=text value="http://khoa.unaux.com/rss/get-rss.php" id=rss/>
+<input type=text value="http://khoa.unaux.com/rss/get-rss.php" id="rss"/>
 <input type=button id=getrss onclick="getRss()" value="Get"/>  
 </form>
-<div id=content></div>
+<div id="content"></div>
 </body>   
 </html>
