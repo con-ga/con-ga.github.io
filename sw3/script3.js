@@ -1,1 +1,1 @@
-document.write("Hello from script3.js");
+document.write("Hello from script3.js#1");
