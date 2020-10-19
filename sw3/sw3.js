@@ -1,7 +1,7 @@
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-  '/swex/script1.js',
-  '/swex/page1.html'
+  '/swex/script3.js',
+  '/swex/page3.html'
 ];
 
 self.addEventListener('install', function(event) {
