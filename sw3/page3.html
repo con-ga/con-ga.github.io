@@ -2,10 +2,11 @@
 <script type="text/javascript" src="script3.js"></script>
 <script>document.write("39");
 </script>
+<div id="div"></div>
 <script>
 alert("page3.html 11");
-fetch("/sw3/script3.js").then(response => response.text().then
-(text => alert(text)).catch(err => {alert("error");alert(err)}));
+fetch("/sw3/script3.js").then(response => response.text()).then
+(text => alert(text)).catch(err => {alert("error");alert(err)});
 alert("page3.html 13");
 </script>
 </body>
