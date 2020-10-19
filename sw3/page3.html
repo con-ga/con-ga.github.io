@@ -3,7 +3,7 @@
 <script>
 alert("page3.html 3");
 fetch("script3.js").then(response => return response.text().then
-(text => alert(text)));
+(text => alert(text)).catch(err => {alert("error");alert(err)});
 alert("page3.html 5");
 </script>
 </body>
