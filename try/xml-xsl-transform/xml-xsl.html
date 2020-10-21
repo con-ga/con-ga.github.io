@@ -1,0 +1,59 @@
+<body>
+<script>
+function getDoc(txtarea) {
+	let parser = new DOMParser();
+	let doc;
+	try {
+		doc = parser.parseFromString(txtarea.value,"text/xml");
+		}
+	catch(err) {
+		alert(err.name, err.message);
+	}
+	return doc;
+}
+function transform() {
+	let xmlDoc = getDoc(xml);
+	let xslDoc = getDoc(xsl);
+	console.log(xmlDoc, xslDoc);
+	let resultDoc;
+	let xsltProcessor = new XSLTProcessor();
+	console.log(xsltProcessor);
+	xsltProcessor.importStylesheet(xslDoc);
+	resultDoc = xsltProcessor.transformToFragment(xmlDoc, document);
+	console.log(resultDoc);
+	if (resultDoc == null) {
+		output.innerHTML="error";
+	}
+	divview.innerHTML="";
+	divview.appendChild(resultDoc);
+	output.innerHTML="<textarea class='vis'>" + divview.innerHTML + "</textarea>";
+	//console.log("displayed");
+}
+</script>
+<textarea id=xml><catalog id="1" ten = "Khoa" ho="Pham">
+<tree>
+  <tree>
+    <tree e="$">
+      <leaf>One</leaf>
+      <leaf e="#">Two</leaf>
+    </tree>
+    <leaf>Three</leaf>
+    <txtarea>txt</txtarea>
+  </tree>
+  <leaf>Four</leaf>
+</tree>
+</catalog></textarea>
+<textarea id= xsl>
+
+<xsl:stylesheet xmlns:xsl = "http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="//*">&lt;<xsl:value-of select="name()"/>&gt;
+    <xsl:apply-templates/>
+&lt;/<xsl:value-of select="name()"/>&gt;
+<textarea>abc</textarea>
+</xsl:template>
+
+</xsl:stylesheet>
+</textarea>
+<button onclick="transf()">Transform</button>
+</body>
