@@ -12,6 +12,7 @@ function getDoc(txtarea) {
 	return doc;
 }
 function transform() {
+alert("1");
 	let xmlDoc = getDoc(xml);
 	let xslDoc = getDoc(xsl);
 	console.log(xmlDoc, xslDoc);
@@ -55,6 +56,6 @@ function transform() {
 
 </xsl:stylesheet>
 </textarea>
-<button onclick="transf()">Transform</button>
+<button onclick="transform()">Transform</button>
 <div id=divview></div>
 </body>
