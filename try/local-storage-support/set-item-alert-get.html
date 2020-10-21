@@ -1,0 +1,10 @@
+<body>
+<input type=text style="width:160px" id=item />
+<button onclick="msg()">save item</button>
+<script>
+function msg()
+{
+localStorage.setItem("chao", item.value);
+alert(localStorage.getItem("chao"));
+}</script>
+</body>
