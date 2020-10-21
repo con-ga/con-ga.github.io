@@ -1,0 +1,64 @@
+<body>
+<script>
+function getDoc(txtarea) {
+	let parser = new DOMParser();
+	let doc;
+	try {
+		doc = parser.parseFromString(txtarea.value,"text/xml");
+		}
+	catch(err) {
+		alert(err.name, err.message);
+	}
+	return doc;
+}
+function transform() {
+    alert("2");
+	let xmlDoc = getDoc(xml);
+	let xslDoc = getDoc(xsl);
+	alert(xmlDoc, xslDoc);
+	let resultDoc;
+	let xsltProcessor = new XSLTProcessor();
+	alert(xsltProcessor);
+	xsltProcessor.importStylesheet(xslDoc);
+	resultDoc = xsltProcessor.transformToFragment(xmlDoc, document);
+	alert(resultDoc);
+	if (resultDoc == null) {
+		output.innerHTML="error";
+	}
+	divview.innerHTML="_";
+	divview.appendChild(resultDoc);
+	alert(divview.innerHTML);
+	//output.innerHTML="<textarea class='vis'>" + divview.innerHTML + "</textarea>";
+	//console.log("displayed");
+}
+</script>
+<textarea id=xml rows=10><catalog id="1" ten = "Khoa" ho="Pham">
+<tree>
+  <tree>
+    <tree e="$">
+      <leaf>One</leaf>
+      <leaf e="#">Two</leaf>
+    </tree>
+    <leaf>Three</leaf>
+    <txtarea>txt</txtarea>
+  </tree>
+  <leaf>Four</leaf>
+</tree>
+</catalog></textarea>
+<br>
+<textarea id= xsl rows=10>
+
+<xsl:stylesheet xmlns:xsl = "http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="//*">&amp;lt;<xsl:value-of select="name()"/>&amp;gt;
+    <xsl:apply-templates/>
+&amp;lt;/<xsl:value-of select="name()"/>&amp;gt;
+<txtarea>abc</txtarea>
+</xsl:template>
+
+</xsl:stylesheet>
+</textarea>
+<button onclick="transform()">Transform</button>
+<div id=output></div>
+<div style="background:yellow" id=divview></div>
+</body>
