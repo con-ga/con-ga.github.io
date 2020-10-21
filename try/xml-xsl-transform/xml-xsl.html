@@ -26,7 +26,7 @@ function transform() {
 	}
 	divview.innerHTML="";
 	divview.appendChild(resultDoc);
-	output.innerHTML="<textarea class='vis'>" + divview.innerHTML + "</textarea>";
+	//output.innerHTML="<textarea class='vis'>" + divview.innerHTML + "</textarea>";
 	//console.log("displayed");
 }
 </script>
@@ -56,4 +56,5 @@ function transform() {
 </xsl:stylesheet>
 </textarea>
 <button onclick="transf()">Transform</button>
+<div id=divview></div>
 </body>
