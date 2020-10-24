@@ -1,15 +1,23 @@
 <body>%%%
 <iframe width="200px" height="150px" src="in-iframe-with-function.html" name="func" id="funct"></iframe>
 <script>
-alert("17");
 function echo(msg)
 {
-	//let win = 13;
-	let win = window.frames["funct"];
+	let win = 13;
+	alert(":");
+	let ifr = document.all.funct;
+	alert("contentWindow" in ifr);
+	alert(ifr.contentWindow);
+	alert("*");
+	alert("echoit" in ifr.contentWindow);
+	if (!win) {
+		alert("!win");
+		alert(win);
+		return;
+	}
 	alert(win);
-        alert("echo" in win);
-        alert(win.echo);
-	win.echo(msg);
+	alert("echoit" in win);
+	//win.echo(msg);
 	alert(win);
 }
 </script>
