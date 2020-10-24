@@ -1,14 +1,14 @@
 <body>%%%
 <iframe width="200px" height="150px" src="in-iframe-with-function.html" name="func" id="funct"></iframe>
 <script>
-alert(13);
+alert(19);
 function echo(msg)
 {
 	let win = 13;
-	alert(":");
+	//alert(":");
 	let ifr = document.all.funct;
 	alert("contentWindow" in ifr);
-	alert(ifr.contentWindow);
+	win = ifr.contentWindow);
 	alert("*");
 	alert("echo" in ifr.contentWindow);
 	if (!win) {
