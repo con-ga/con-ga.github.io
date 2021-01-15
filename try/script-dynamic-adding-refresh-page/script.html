@@ -22,14 +22,14 @@ alert("end head script");
 </script>
 </head>
 <body>
-12345678910 11 12
+12345678910 11 12 13
 <script>
-document.onload=function() {
+document.body.onload=function() {
   alert("onload start");
   loadScriptSrc(url);
   alert("onload end");
 };
-alert(document.onload);
+alert(document.body.onload);
 </script>
 </body>
 </html>
