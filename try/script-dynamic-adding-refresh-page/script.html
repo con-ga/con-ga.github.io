@@ -1,0 +1,23 @@
+<html>
+<head>
+<script>
+var url="script.js";
+document.onload=function() {
+  alert("onload start");
+  loadScriptSrc(url);
+  alert("onload end");
+}
+function loadScriptSrc(src)
+{
+  alert("loadScriptSrc start");
+  var script=document.createElement("script");
+  script.src=src;
+  document.head.appendChild(script);
+  alert("loadScriptSrc end");
+}
+</script>
+</head>
+<body>
+
+</body>
+</html>
