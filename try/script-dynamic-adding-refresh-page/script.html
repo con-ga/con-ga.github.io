@@ -2,11 +2,13 @@
 <head>
 <script>
 var url="script.js";
+alert("alert begin");
 document.body.onload=function() {
   alert("onload start");
   loadScriptSrc(url);
   alert("onload end");
 };
+alert(document.body.onload);
 function loadScriptSrc(src)
 {
   alert("loadScriptSrc start");
@@ -15,9 +17,11 @@ function loadScriptSrc(src)
   document.head.appendChild(script);
   alert("loadScriptSrc end");
 }
+alert("end head script");
+alert(loadScriptSrc);
 </script>
 </head>
 <body>
-12
+123
 </body>
 </html>
