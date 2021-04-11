@@ -26,7 +26,8 @@ self.addEventListener("fetch", function(e) {
     const networkResponse = await fetch(e.request);
 
     const hosts = [
-      'https://www.google.com'
+      'https://www.google.com',
+"https://ngocyendoan.blogspot.com/2021/04/window.html?m=1"
     ];
 
     if (hosts.some((host) => e.request.url.startsWith(host))) {
