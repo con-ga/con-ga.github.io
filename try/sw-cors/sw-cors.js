@@ -15,9 +15,8 @@ self.addEventListener('install', function(event) {
       })
   );
 });
-hat you rewrite your code to use async/await, as it's much more readable (and supported by any browser that also supports service workers today).
 
-addEventListener("fetch", function(e) {
+self.addEventListener("fetch", function(e) {
   e.respondWith((async function() {
     const cachedResponse = await caches.match(e.request);
     if (cachedResponse) {
