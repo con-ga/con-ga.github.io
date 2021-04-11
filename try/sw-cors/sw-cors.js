@@ -23,7 +23,7 @@ self.addEventListener("fetch", function(e) {
       return cachedResponse;
     }
 
-    const networkResponse = await fetch(e.request);
+    const networkResponse ;//= await fetch(e.request);
 
     const hosts = [
       'https://www.google.com',
@@ -31,7 +31,8 @@ self.addEventListener("fetch", function(e) {
     ];
 
     if (hosts.some((host) => e.request.url.startsWith(host))) {
-      // This clone() happens before `return networkResponse` 
+      // This clone() happens before `return networkResponse`
+      networkResponse = await fetch(e.request, {mode: 'no-cors'}); 
       const clonedResponse = networkResponse.clone();
 
       e.waitUntil((async function() {
