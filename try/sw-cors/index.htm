@@ -8,6 +8,12 @@
 const request = new Request("https://www.google.com", {mode: 'no-cors'}); 
 fetch(request).then(function(resp) {
     alert(resp);});
+window.addEventListener("message", function(ev) {
+const win = document.getElementById("ifr").contentWindow;
+win.postMessage(ev.data, "*");
+});
 </script> 11
+<iframe id="ifr" width="200" height="150" src="https://ngocyendoan.blogspot.com/2021/04/window.html?m=1">
+</iframe>
 </body>
 </html>
