@@ -2,7 +2,10 @@
 <head>
 <script>
 navigator.serviceWorker.addEventListener("message", function(ev) {
-    ev.data.forEach(alert);
+    alert(ev.data.msg + " " + ev.data.urls.length);
+    ev.data.urls.forEach(function(url) {
+    alert("url " + url);
+});
 });
 function sendMsg(msg)
 {

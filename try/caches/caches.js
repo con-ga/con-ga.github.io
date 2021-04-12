@@ -33,6 +33,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('message', function(event) {
   // find the client(s) you want to send messages to:
+//let urls;
 self.clients.matchAll(/* search options */).then( (clients) => {
     if (clients && clients.length) {
         // you need to decide which clients you want to send the message to..
@@ -43,7 +44,7 @@ cache.keys().then(function (keys) {
     urls = keys.map(request => request.url);
 });
 });
-        client.postMessage(urls);
+        client.postMessage({msg : "bonjour", urls :urls});
     }
 });
 });
