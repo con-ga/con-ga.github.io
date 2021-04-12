@@ -1,0 +1,16 @@
+<html>
+<head>
+<script>
+navigator.serviceWorker.addEventListener("message", function(ev) {
+    alert(ev.data);
+});
+function sendMsg(msg)
+{
+    navigator.serviceWorker.controller.postMessage(msg);
+}
+</script>    
+</head>
+<body>
+<input id="message" type= "text" /><button onclick="sendMsg(message.value);">Send message</button>    
+</body>
+</html>
