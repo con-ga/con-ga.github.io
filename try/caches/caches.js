@@ -37,3 +37,4 @@ self.clients.matchAll(/* search options */).then( (clients) => {
         client.postMessage(event.data);
     }
 });
+});
