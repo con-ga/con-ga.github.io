@@ -39,12 +39,12 @@ self.clients.matchAll(/* search options */).then( (clients) => {
         // you need to decide which clients you want to send the message to..
         const client = clients[0];
         let urls;
-        caches.open(CACHE_NAME).then(function(cache) {
+        /*caches.open(CACHE_NAME).then(function(cache) {
 cache.keys().then(function (keys) {
     urls = keys.map(request => request.url);
 });
-});
-        client.postMessage({msg : "bonjour", urls :urls});
+});*/
+        client.postMessage({msg : "bonjour", urls : urls});
     }
 });
-});
+});//
