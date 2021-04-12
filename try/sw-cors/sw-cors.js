@@ -23,7 +23,7 @@ self.addEventListener("fetch", function(e) {
       return cachedResponse;
     }
 
-    const networkResponse ;//= await fetch(e.request);
+    let networkResponse ;//= await fetch(e.request);
 
     const hosts = [
       'https://www.google.com',
