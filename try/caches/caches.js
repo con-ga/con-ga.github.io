@@ -1,6 +1,9 @@
 var CACHE_NAME = 'caches';
 var urlsToCache = [
-  '/try/caches/list-caches.htm'
+  '/try/caches/list-caches.htm',
+  '/try/caches/mot.htm',
+  '/try/caches/hai.htm',
+  '/try/caches/ba.htm'
 ];
 
 self.addEventListener('install', function(event) {
@@ -34,7 +37,13 @@ self.clients.matchAll(/* search options */).then( (clients) => {
     if (clients && clients.length) {
         // you need to decide which clients you want to send the message to..
         const client = clients[0];
-        client.postMessage(event.data);
+        let urls;
+        caches.open(CACHE_NAME).then(function(cache) {
+cache.keys().then(function (keys) {
+    urls = keys.map(request => request.url);
+});
+});
+        client.postMessage(urls);
     }
 });
 });
