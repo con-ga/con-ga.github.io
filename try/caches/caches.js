@@ -37,7 +37,7 @@ self.addEventListener('message', function(event) {
 self.clients.matchAll(/* search options */).then( (clients) => {
     if (clients && clients.length) {
         // you need to decide which clients you want to send the message to..
-        const client = clients[0];
+        const client0 = clients[0];
         let urls;
         /*caches.open(CACHE_NAME).then(function(cache) {
 cache.keys().then(function (keys) {
