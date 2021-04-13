@@ -5,7 +5,7 @@ var urlsToCache = [
   '/try/caches/hai.htm',
   '/try/caches/ba.htm'
 ];
-
+console.log("service worker global");
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
