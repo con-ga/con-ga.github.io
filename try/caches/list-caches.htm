@@ -9,12 +9,15 @@ navigator.serviceWorker.addEventListener("message", function(ev) {
 });
 function sendMsg(msg)
 {
+alert("before send message to controller");
     navigator.serviceWorker.controller.postMessage(msg);
+alert("after send message to controller");
 }
 </script>    
 </head>
 <body>
+
 <input id="message" type= "text" /><button onclick="sendMsg(message.value);">Send message</button> <hr />
-13  
+17 
 </body>
 </html>
