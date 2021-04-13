@@ -45,7 +45,7 @@ cache.keys().then(function (keys) {
 });
 });*/
         clients.forEach(function(client) {
-client.postMessage({msg : "bonjour " + event.data, urls : urls});
+client.postMessage( event.data);
     });
 });
 });//
