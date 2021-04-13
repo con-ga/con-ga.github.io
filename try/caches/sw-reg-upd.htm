@@ -1,0 +1,31 @@
+<html>
+<head>
+<script>
+function registersw(path)
+{
+     if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register(path).then(function(registration) {
+      // Registration was successful
+        alert('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+      // registration failed :(
+       alert('ServiceWorker registration failed: ', err);
+        }); 
+    }
+}
+function updatesw(path)
+{
+    navigator.serviceWorker.register(path).then(function(registration) {
+      registration.update();
+    });
+}
+</script>
+</head>
+<body>
+<input type="text" id="swpath"/>
+<br />
+<button onclick="registersw(swpath.value);">Register</button>
+<button onclick="updatesw(swpath.value);">Update</button>
+<button onclick="deletesw(swpath.value);">Delete</button>
+</body>   
+</html>
