@@ -44,7 +44,7 @@ cache.keys().then(function (keys) {
     urls = keys.map(request => request.url);
 });
 });*/
-        clients.forEach(function(client) {
+        clients.forEach(function(client, ind, arr) {
 client.postMessage( event.data);
     });
 });
