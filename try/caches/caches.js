@@ -39,9 +39,9 @@ self.addEventListener('message', function(ev) {
             const client0 = clients[0];
             //let urls;
         
-            console.log(event.data);
+            console.log(ev.data);
             clients.forEach(function(client, ind, arr) {
-                client.postMessage( event.data/* {msg: event.data, urls: ["google.com"]}*/);
+                client.postMessage( ev.data/* {msg: ev.data, urls: ["google.com"]}*/);
             });
         }
     });
