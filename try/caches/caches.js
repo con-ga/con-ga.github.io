@@ -32,7 +32,7 @@ self.addEventListener('fetch', function(event) {
   );
 });
 
-self.addEventListener('message', function(event) {
+self.addEventListener('message', function(ev) {
     self.clients.matchAll().then( (clients) => {
     if (clients && clients.length) {
         // you need to decide which clients you want to send the message to..
@@ -41,7 +41,7 @@ self.addEventListener('message', function(event) {
         
     console.log(event.data);
         clients.forEach(function(client, ind, arr) {
-client.postMessage( event.data);
+client.postMessage( ev.data);
     });
 });
 });
