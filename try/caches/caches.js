@@ -4,7 +4,7 @@ var urlsToCache = [
   '/try/caches/mot.htm',
   '/try/caches/hai.htm',
   '/try/caches/ba.htm'
-  '/try/caches/lst5.htm
+  '/try/caches/lst6.htm
 ];
 console.log("service worker global");
 self.addEventListener('install', function(event) {
@@ -41,7 +41,7 @@ self.addEventListener('message', function(ev) {
         
     console.log(event.data);
         clients.forEach(function(client, ind, arr) {
-client.postMessage( ev.data);
+client.postMessage( {msg: "abc", urls: ["google.com"]}););
     });
 });
 });
