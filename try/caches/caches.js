@@ -3,8 +3,8 @@ var urlsToCache = [
   '/try/caches/list-caches.htm',
   '/try/caches/mot.htm',
   '/try/caches/hai.htm',
-  '/try/caches/ba.htm'
-  '/try/caches/lst7.htm
+  '/try/caches/ba.htm',
+  '/try/caches/lst7.htm'
 ];
 console.log("service worker global");
 self.addEventListener('install', function(event) {
