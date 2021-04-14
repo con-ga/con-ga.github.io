@@ -14,6 +14,16 @@ alert("before send message to controller");
     navigator.serviceWorker.controller.postMessage(msg);
 alert("after send message to controller");
 }
+if ('serviceWorker' in navigator) {
+  // Do a one-off check to see if a service worker's in control.
+  if (navigator.serviceWorker.controller) {
+    alert(`This page is currently controlled by: ${navigator.serviceWorker.controller}`);
+  } else {
+    alert('This page is not currently controlled by a service worker.');
+  }
+} else {
+  alert('Service workers are not supported.');
+}
 </script>    
 </head>
 <body>
