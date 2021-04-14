@@ -1,6 +1,7 @@
 <html>
 <head>
 <script>
+alert(29);
 navigator.serviceWorker.addEventListener("message", function(ev) {
     alert(ev.data);
     /*alert(ev.data.msg + " " + ev.data.urls.length);
@@ -29,6 +30,6 @@ if ('serviceWorker' in navigator) {
 <body>
 
 <input id="message" type= "text" /><button onclick="sendMsg(message.value);">Send message</button> <hr />
-23
+31
 </body>
 </html>
