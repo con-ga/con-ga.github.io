@@ -2,9 +2,10 @@
 <head>
 <script>
 navigator.serviceWorker.addEventListener("message", function(ev) {
-    alert(ev.data.msg + " " + ev.data.urls.length);
+    alert(ev.data);
+    /*alert(ev.data.msg + " " + ev.data.urls.length);
     ev.data.urls.forEach(function(url) {
-    alert("url " + url);
+    alert("url " + url);*/
 });
 });
 function sendMsg(msg)
@@ -18,6 +19,6 @@ alert("after send message to controller");
 <body>
 
 <input id="message" type= "text" /><button onclick="sendMsg(message.value);">Send message</button> <hr />
-17 
+19
 </body>
 </html>
