@@ -4,10 +4,10 @@
 alert(29);
 navigator.serviceWorker.addEventListener("message", function(ev) {
     alert(ev.data);
-    /*alert(ev.data.msg + " " + ev.data.urls.length);
+    alert(ev.data.msg + " " + ev.data.urls.length);
     ev.data.urls.forEach(function(url) {
-    alert("url " + url);*/
-});
+        alert("url " + url);
+    });
 });
 function sendMsg(msg)
 {
@@ -30,6 +30,6 @@ if ('serviceWorker' in navigator) {
 <body>
 
 <input id="message" type= "text" /><button onclick="sendMsg(message.value);">Send message</button> <hr />
-31
+37
 </body>
 </html>
