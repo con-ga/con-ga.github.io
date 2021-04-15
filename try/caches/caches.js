@@ -6,13 +6,13 @@ var urlsToCache = [
   '/try/caches/ba.htm',
   '/try/caches/lst11.htm'
 ];
-console.log("service worker global");
+//console.log("service worker global");
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
-        console.log('Opened cache');
+        //console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
@@ -43,7 +43,7 @@ self.addEventListener('message', function(ev) {
                     urls = keys.map(request => request.url);
                 });
             });
-            console.log(ev.data);
+            console.log("xyz: " + ev.data);
             urls.forEach(url => {console.log(url);});
             clients.forEach(function(client, ind, arr) {
                 client.postMessage( {msg: ev.data, urls: urls});
