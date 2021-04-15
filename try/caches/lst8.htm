@@ -3,7 +3,7 @@
 <script>
 //alert(31);
 navigator.serviceWorker.addEventListener("message", function(ev) {
-    alert("ev.data " + ev.data);
+    alert("ev.data " + ev.data.msg);
     alert(ev.data.msg + " " + ev.data.urls.length);
     ev.data.urls.forEach(function(url) {
         alert("url " + url);
