@@ -37,16 +37,16 @@ self.addEventListener('message', function(ev) {
         if (clients && clients.length) {
             // you need to decide which clients you want to send the message to..
             const client0 = clients[0];
-            let urls = [];
+            //let urls = [];
             caches.open(CACHE_NAME).then(function(cache) {
-                cache.keys().then(function (keys) {
-                    keys.forEach(request => urls.push(request.url));
-                });
-            });
-            console.log("xyz: " + ev.data);
-            urls.forEach(url => {console.log(url);});
-            clients.forEach(function(client, ind, arr) {
-                client.postMessage( {msg: ev.data, urls: urls});
+                return cache.keys()
+            }).then(function (keys) {
+                return keys.map(request => request.url);
+            }).then(function (urls) {
+                console.log("xyz: " + ev.data);
+                //urls.forEach(url => {console.log(url);});
+                clients.forEach(function(client, ind, arr) {
+                    client.postMessage( {msg: ev.data, urls: urls});
             });
         }
     });
