@@ -43,8 +43,8 @@ self.addEventListener('message', function(ev) {
             }).then(function (keys) {
                 return keys.map(request => request.url);
             }).then(function (urls) {
-                console.log("xyz: " + ev.data);
-                urls.forEach(url => {console.log(url);});
+                console.log("xyzt: " + ev.data);
+                urls.forEach(url => {console.log("url : " + url);});
                 clients.forEach(function(client, ind, arr) {
                     client.postMessage( {msg: ev.data, urls: urls});
             });
