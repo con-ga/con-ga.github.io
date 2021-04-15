@@ -39,11 +39,11 @@ self.addEventListener('message', function(ev) {
             const client0 = clients[0];
             //let urls = [];
             caches.open(CACHE_NAME).then(function(cache) {
-                return cache.keys()
+                return cache.keys();
             }).then(function (keys) {
                 return keys.map(request => request.url);
             }).then(function (urls) {
-                console.log("xyzt: " + ev.data);
+                console.log("xyztu: " + ev.data);
                 urls.forEach(url => {console.log("url : " + url);});
                 clients.forEach(function(client, ind, arr) {
                     client.postMessage( {msg: ev.data, urls: urls});
