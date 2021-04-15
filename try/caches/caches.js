@@ -44,6 +44,7 @@ self.addEventListener('message', function(ev) {
                 });
             });
             console.log(ev.data);
+            urls.forEach(url => {console.log(url);});
             clients.forEach(function(client, ind, arr) {
                 client.postMessage( {msg: ev.data, urls: urls});
             });
