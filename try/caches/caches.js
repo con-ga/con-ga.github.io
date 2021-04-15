@@ -41,10 +41,10 @@ self.addEventListener('message', function(ev) {
             caches.open(CACHE_NAME).then(function(cache) {
                 return cache.keys();
             }).then(function (keys) {
-                return keys.map(request => request.url);
+                return keys.map(request => "(" + request.url + ")");
             }).then(function (urls) {
                 console.log("xyztu: " + ev.data);
-                urls.forEach(console.log);
+                //urls.forEach(console.log);
                 clients.forEach(function(client, ind, arr) {
                     client.postMessage( {msg: ev.data, urls: urls});
                 });
