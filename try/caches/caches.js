@@ -24,7 +24,10 @@ self.addEventListener('fetch', function(event) {
       .then(function(response) {
         // Cache hit - return response
         if (response) {
-          return response;
+          return response.text().then(function(text) {
+              return new Response("<hr />" + text + "<hr />");
+          });
+          //return response;
         }
         return fetch(event.request);
       }
