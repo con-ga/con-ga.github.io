@@ -1,0 +1,20 @@
+<html>
+<head>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/try/dyn-pages/page-dynamic.js').then(function(registration) {
+      // Registration was successful
+      alert('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      alert('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+</script>
+</head>
+<body>
+register page dynamic
+</body>
+</html>
