@@ -6,9 +6,9 @@ self.addEventListener("fetch", function(ev) {
     if (ind >= 0) {
         fetch(ev.request.url).then(function(response) {
             ev.respondWith(Promise.resolve(response));
-            return;
+            
         });
-    }
+    } else {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'text/html');
 
@@ -16,4 +16,5 @@ self.addEventListener("fetch", function(ev) {
         Promise.resolve(new Response("<html><body>(" + ev.request.url + ")<hr />" 
         + "<iframe src=\"http://www.google.com\" width=300 height=200 style=background:yellow ></iframe>" + "</body></html>", {headers:myHeaders}))
     );
+    }
 });
