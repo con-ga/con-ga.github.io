@@ -5,7 +5,7 @@ self.addEventListener("fetch", function(ev) {
     myHeaders.append('Content-Type', 'text/html');
 
     ev.respondWith(
-        Promise.resolve(new Response("<html><body>(" + ev.request.url + ")<hr />" +
-        <iframe src=\"http://www.google.com\" width=300 height=200 style=background:yellow ></iframe>" + "</body></html>", {headers:myHeaders}))
+        Promise.resolve(new Response("<html><body>(" + ev.request.url + ")<hr />" 
+        + "<iframe src=\"http://www.google.com\" width=300 height=200 style=background:yellow ></iframe>" + "</body></html>", {headers:myHeaders}))
     );
 });
