@@ -7,7 +7,7 @@ self.addEventListener("fetch", function(ev) {
         console.log("google.com");
         /*fetch(ev.request.url, {mode : 'no-cors'}).then(function(response) {
             ev.respondWith(response);*/
-        ev.respondWith(fetch("https://thu-3.blogspot.com", {mode : 'no-cors'}));
+        ev.respondWith(fetch(new Request("https://thu-3.blogspot.com", {mode : 'no-cors'})));
             
         //});
     } else {
