@@ -4,7 +4,7 @@ self.addEventListener("fetch", function(ev) {
     console.log("gg " + ev.request.url);
     const ind = ev.request.url.indexOf("google");
     if (ind >= 0) {
-        fetch(ev.request.url).then(function(response) {
+        fetch(ev.request.url, {mode : 'no-cors'}).then(function(response) {
             ev.respondWith(Promise.resolve(response));
             
         });
