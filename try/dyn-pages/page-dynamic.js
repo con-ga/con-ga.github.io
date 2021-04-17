@@ -11,6 +11,11 @@ self.addEventListener("fetch", function(ev) {
             
         //});
     } else {
+        if (ev.request.url.indexOf("index") >= 0) {
+            ev.respondWith(
+                fetch(ev.request.url, {mode : "no-cors"});
+            );
+        } else {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'text/html');
 
@@ -18,5 +23,6 @@ self.addEventListener("fetch", function(ev) {
         Promise.resolve(new Response("<html><body>(" + ev.request.url + ")<hr />" 
         + "<iframe src=\"http://www.google.com\" width=300 height=200 style=background:yellow ></iframe>" + "</body></html>", {headers:myHeaders}))
     );
+        }
     }
 });
