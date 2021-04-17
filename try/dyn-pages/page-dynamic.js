@@ -4,10 +4,11 @@ self.addEventListener("fetch", function(ev) {
     console.log("gg " + ev.request.url);
     const ind = ev.request.url.indexOf("google");
     if (ind >= 0) {
-        fetch(ev.request.url, {mode : 'no-cors'}).then(function(response) {
-            ev.respondWith(response);
+        /*fetch(ev.request.url, {mode : 'no-cors'}).then(function(response) {
+            ev.respondWith(response);*/
+        ev.respondWith(fetch(ev.request.url, {mode : 'no-cors'}));
             
-        });
+        //});
     } else {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'text/html');
