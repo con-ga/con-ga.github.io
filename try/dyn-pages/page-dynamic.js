@@ -1,6 +1,7 @@
 self.addEventListener("install", function(ev) {
 });
 self.addEventListener("fetch", function(ev) {
+    console.log("gg " + ev.request.url);
     const ind = ev.request.url.indexOf("google");
     if (ind >= 0) {
         fetch(ev.request.url).then(function(response) {
