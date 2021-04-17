@@ -4,9 +4,10 @@ self.addEventListener("fetch", function(ev) {
     console.log("gg " + ev.request.url);
     const ind = ev.request.url.indexOf("google");
     if (ind >= 0) {
+        console.log("google.com");
         /*fetch(ev.request.url, {mode : 'no-cors'}).then(function(response) {
             ev.respondWith(response);*/
-        ev.respondWith(fetch(ev.request.url, {mode : 'no-cors'}));
+        ev.respondWith(fetch("https://www.google.com", {mode : 'no-cors'}));
             
         //});
     } else {
