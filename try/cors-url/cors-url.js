@@ -9,7 +9,7 @@ self.addEventListener("fetch", function(ev) {
         ev.respondWith(new Response(html, {headers : headers}));
     }
     else {
-        url = ev.request.url.substring(u);
+        url = ev.request.url.substring(u + 5);
         ev.respondWith(
             (async function() {
                const page = await fetch(url, {mode : "no-cors"}); 
