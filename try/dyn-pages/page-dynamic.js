@@ -9,7 +9,7 @@ self.addEventListener("fetch", function(ev) {
             ev.respondWith(response);*/
         //ev.respondWith(fetch(new Request("https://thu-3.blogspot.com", {mode : 'no-cors'})));
         ev.respondWith((async function() {
-            const resp = await fetch("https://thu-3.blogspot.com", {mode : "no-cors"});
+            const resp = await fetch("https://ngocyendoan.blogspot.com", {mode : "no-cors"});
             return resp;
         })());  
         //});
