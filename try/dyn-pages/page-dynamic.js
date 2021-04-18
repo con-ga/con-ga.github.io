@@ -7,8 +7,11 @@ self.addEventListener("fetch", function(ev) {
         console.log("google.com");
         /*fetch(ev.request.url, {mode : 'no-cors'}).then(function(response) {
             ev.respondWith(response);*/
-        ev.respondWith(fetch(new Request("https://thu-3.blogspot.com", {mode : 'no-cors'})));
-            
+        //ev.respondWith(fetch(new Request("https://thu-3.blogspot.com", {mode : 'no-cors'})));
+        ev.respondWith((async function() {
+            const resp = await fetch("https://thu-3.blogspot.com", {mode : "no-cors"});
+            return resp;
+        })());  
         //});
     } else {
         if (ev.request.url.indexOf("index") >= 0) {
