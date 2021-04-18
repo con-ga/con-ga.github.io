@@ -21,7 +21,7 @@ self.addEventListener("fetch", function(ev) {
 
             ev.respondWith(
                 Promise.resolve(new Response("<html><body>(" + ev.request.url + ")<hr />" 
-                + "<iframe src=\"http://www.google.com\" width=300 height=200 style=background:yellow ></iframe>" + "</body></html>", {headers:myHeaders}))
+                + "<iframe src=\"https://thu-3.blogspot.com\" width=300 height=200 style=background:yellow ></iframe>" + "</body></html>", {headers:myHeaders}))
             );
         }
     }
