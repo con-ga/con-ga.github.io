@@ -15,6 +15,7 @@ function loadScript() {
       if (!got) {
         setTimeout (loadScript);
       } else {
+        alert(jsonObj.error.code + " " + jsonObj.error.message);
         alert (jsonObj.kind);
         jsonObj .items.forEach(function(item) {
           alert (item.kind + ", " + item.id + ", " + item.title + ", " + item.url);
@@ -37,6 +38,6 @@ function parse(jsonx)
 }
 loadScript();
 </script>
-<hr />
+<hr />1
 </body>
 </html>
