@@ -1,0 +1,40 @@
+<html>
+<body>
+<div id = "div"></div>
+<script>
+var got = false;
+var jsonObj;
+function loadScript() {
+  alert("xin chao");
+  var script = document.createElement("script");
+  alert("xin chao 2");
+  script.src = "https://www.googleapis.com/blogger/v3/blogs/7200643719751225804/posts?fields=kind,items(kind,id,title,url)&key=AIzaSyAGw5SrWJ_KciVGF5QHSpE8b3He8HCfdBY&callback=parse";
+  script.onload = function() {
+    alert("script onload");
+    setTimeout(function () {
+      if (!got) {
+        setTimeout (loadScript);
+      } else {
+        alert (jsonObj.kind);
+        jsonObj .items.forEach(function(item) {
+          alert (item.kind + ", " + item.id + ", " + item.title + ", " + item.url);
+          });
+        }
+      
+      });
+   };
+  alert("xin chao 3");
+  var div = document.getElementById("div");
+  div.appendChild(script);
+  alert("xin chao 4");
+  alert(div.innerHTML);/**/
+}
+function parse(jsonx)
+{
+  jsonObj = jsonx;
+  got = true;
+  alert("jsonx " + jsonx);
+}
+</script>
+</body>
+</html>
