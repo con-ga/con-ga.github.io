@@ -1,0 +1,21 @@
+<body>
+11
+<div id="msg"></div>
+<script>
+var url = "text.txt";
+var date = "";
+function getTxt(url)
+{
+    if (date = "") {
+        fetch(url).then(response => {
+            date = response.headers["Last-Modified"];
+            alert(date);
+            msg.innerHTML = "(" + date + ")";
+        })
+    }
+}
+getTxt(url);
+</script>
+
+
+</body>
