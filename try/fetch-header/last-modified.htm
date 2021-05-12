@@ -18,6 +18,10 @@ function getTxt(url)
         headers.append("If-Modified-Since", date);
         fetch(url, {headers : headers}).then((response) => {
             alert(response.status);
+            if (response.status == 200) {
+                date = response.headers.get("Last-Modified");
+                msg.innerHTML = "(" + date + ")";
+            }
         });
     }
 }
