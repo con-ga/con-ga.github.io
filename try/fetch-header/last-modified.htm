@@ -1,12 +1,12 @@
 <body>
-15
+16
 <div id="msg"></div>
 <script>
 var url = "text.txt";
 var date = "";
 function getTxt(url)
 {
-    if (date = "") {
+    if (date == "") {
         fetch(url).then(response => {
             date = response.headers.get("Last-Modified");
             alert(date);
