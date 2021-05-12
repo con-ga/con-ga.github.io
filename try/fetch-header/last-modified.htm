@@ -9,13 +9,20 @@ function getTxt(url)
     if (date == "") {
         fetch(url).then(response => {
             date = response.headers.get("Last-Modified");
-            alert(date);
+            //alert(date);
             msg.innerHTML = "(" + date + ")";
         });
     }
+    else {
+        var headers = new Headers();
+        headers.append("If-Modified-Since", date);
+        fetch(url, {headers : headers}).then((response) => {
+            alert(response.status);
+        });
+    }
 }
-getTxt(url);
+//getTxt(url);
 </script>
-
+<button onclick="getTxt('text.txt');">get text file</button>
 
 </body>
