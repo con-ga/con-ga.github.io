@@ -3,34 +3,34 @@
 <div id="msg"></div>
 
 <script>
-alert(localStorage.get("date"));
+alert(localStorage.getItem("date"));
 var url = "text.txt";
-var date = "";/*
+var date = "";
 function getTxt(url)
 {
-    if (localStorage.get("date") == undefined) {
+    if (!localStorage.getItem("date")) {
         fetch(url).then(response => {
             date = response.headers.get("Last-Modified");
-            localStorage.set("date", date);
+            localStorage.setItem("date", date);
             msg.innerHTML = "(" + date + ")";
             response.text().then(alert);
         });
     }
     else {
         var headers = new Headers();
-        headers.append("If-Modified-Since", localStorage.get("date"));
+        headers.append("If-Modified-Since", localStorage.getItem("date"));
         fetch(url, {headers : headers}).then((response) => {
             alert(response.status);
             if (response.status == 200) {
                 date = response.headers.get("Last-Modified");
-                localStorage.set("date", date);
+                localStorage.setItem("date", date);
                 msg.innerHTML = "(" + date + ")";
                 response.text().then(alert);
             }
         });
     }
 }
-//getTxt(url);*/
+//getTxt(url);
 </script>
 <button onclick="getTxt('text.txt');">get text file</button>
 
