@@ -1,0 +1,18 @@
+<html>
+<body>
+<script>
+window.addEventListener("storage", function(e) {
+    alert("storage change");
+    /*var s = "" + e.key + "\n";
+    s += e.oldValue + "\n";
+    s += e.newValue + "\n";
+    s += e.url + "\n";
+    s += JSON.stringify(e.storageArea);
+    alert(s);*/
+});   
+</script>
+<input type=text id ="key">
+<input type=text id="value">
+<button onclick="localStorage.setItem('a', document.getElementById('value').value);alert(localStorage.getItem('a'));">Set storage</button>
+</body>    
+</html>
