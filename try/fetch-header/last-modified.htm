@@ -1,6 +1,7 @@
 <body>
-12
+13
 <div id="msg"></div>
+
 <script>
 var url = "text.txt";
 var date = "";
@@ -11,6 +12,7 @@ function getTxt(url)
             date = response.headers.get("Last-Modified");
             //alert(date);
             msg.innerHTML = "(" + date + ")";
+            response.text().then(alert);
         });
     }
     else {
@@ -21,6 +23,7 @@ function getTxt(url)
             if (response.status == 200) {
                 date = response.headers.get("Last-Modified");
                 msg.innerHTML = "(" + date + ")";
+                response.text().then(alert);
             }
         });
     }
