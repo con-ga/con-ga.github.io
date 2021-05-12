@@ -1,5 +1,5 @@
 <body>
-17
+16
 <div id="msg"></div>
 
 <script>
@@ -7,7 +7,7 @@ var url = "text.txt";
 var date = "";
 function getTxt(url)
 {
-    if (localStorage.get("date") == "") {
+    if (localStorage.get("date") == undefined) {
         fetch(url).then(response => {
             date = response.headers.get("Last-Modified");
             localStorage.set("date", date);
