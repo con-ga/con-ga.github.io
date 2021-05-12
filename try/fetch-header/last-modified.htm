@@ -1,5 +1,5 @@
 <body>
-15
+16
 <div id="msg"></div>
 
 <script>
@@ -7,21 +7,22 @@ var url = "text.txt";
 var date = "";
 function getTxt(url)
 {
-    if (date == "") {
+    if (localStorage.get("date") == "") {
         fetch(url).then(response => {
             date = response.headers.get("Last-Modified");
-            //alert(date);
+            localStorage.set("date", date);
             msg.innerHTML = "(" + date + ")";
             response.text().then(alert);
         });
     }
     else {
         var headers = new Headers();
-        headers.append("If-Modified-Since", date);
+        headers.append("If-Modified-Since", localStorage.get("date"));
         fetch(url, {headers : headers}).then((response) => {
             alert(response.status);
             if (response.status == 200) {
                 date = response.headers.get("Last-Modified");
+                localStorage.set("date", date);
                 msg.innerHTML = "(" + date + ")";
                 response.text().then(alert);
             }
