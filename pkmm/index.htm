@@ -1,0 +1,21 @@
+<html>
+<head>
+<script type="text/javascript">
+function layNoiDung()
+{
+    fetch("danh-sach.htm"). then((response) => response.text()). then (danhSach => tachDanhSach(danhSach)). then(mang => mang.forEach(alert));
+}
+function tachDanhSach(danhSach)
+{
+    //const mang = [];
+    const mang = danhSach.split("\r\n");
+    return Promise.resolve(mang);
+}
+</script>
+</head>
+<body>
+<script>
+layNoiDung()
+</script>    
+</body>
+</html>
