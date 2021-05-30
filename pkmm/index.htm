@@ -22,10 +22,10 @@ function tachDanhSach(danhSach)
     //const mang = [];
     const mang = danhSach.split("\r\n");
     return Promise.all(
-        danhSach.map(tapTin => {
-            return layTapTin(tapTin).then(nd => {
+        mang.map(tapTin => {
+            return layTapTin(tapTin).then(alert);/*(nd => {
                 noiDung[tapTin] = nd;
-            });
+            });*/
         });
     );
 }
