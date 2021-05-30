@@ -23,7 +23,7 @@ function tachDanhSach(danhSach)
     const mang = danhSach.split("\r\n");
     return Promise.all(
         danhSach.map(tapTin => {
-            layTapTin(tapTin).then(nd => {
+            return layTapTin(tapTin).then(nd => {
                 noiDung[tapTin] = nd;
             });
         });
