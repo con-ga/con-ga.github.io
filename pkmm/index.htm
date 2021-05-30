@@ -26,7 +26,7 @@ function layNoiDung()
 function tachDanhSach(danhSach)
 {
     //const mang = [];
-    const mang = danhSach.split("\r\n");
+    const mang = danhSach.split("\r\n").filter(val => val != "");;
     return Promise.all(
         mang.map(tapTin => {
             return layTapTin(tapTin).then(nd => {
