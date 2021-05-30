@@ -6,7 +6,9 @@ function layTapTin(tapTin)
     return fetch(tapTin). then(response => response.text());
 }
 function layNoiDung()
+    alert("layTapTin");
     layTapTin("danh-sach.htm"). then (alert);//(danhSach => tachDanhSach(danhSach)). then(mang => mang.forEach(alert));
+    alert("het layTapTin");
 }
 function tachDanhSach(danhSach)
 {
@@ -16,7 +18,7 @@ function tachDanhSach(danhSach)
 }
 </script>
 </head>
-<body>12
+<body>1
 <script>
 layNoiDung()
 </script>    
