@@ -1,5 +1,8 @@
 <html>
 <head>
+<style>
+#sanpham > div {border: 1px solid green; margin:3px}
+</style>
 <script type="text/javascript">
 const noiDung = {};
 function layTapTin(tapTin)
@@ -10,9 +13,12 @@ function layNoiDung()
 {
     alert("layTapTin");
     layTapTin("danh-sach.htm"). then (danhSach => tachDanhSach(danhSach)). then(kq => {
-        alert (noiDung);
+        alert (noiDung);/*
         alert(noiDung["day-keo.htm"]);
-        alert(noiDung["chi-may-nho.htm"]);
+        alert(noiDung["chi-may-nho.htm"]);*/
+    for (sanPham in noiDung) {
+        document.write(noiDung[sanPham]);
+    }
     });
     alert("het layTapTin");
 }
@@ -32,10 +38,12 @@ function tachDanhSach(danhSach)
 </script>
 </head>
 <body>26
+<div id="sanpham">
 <script>
 alert("layNoiDung");
 layNoiDung();
 alert("het layNoiDung");
-</script>    
+</script>  
+</div>  
 </body>
 </html>
