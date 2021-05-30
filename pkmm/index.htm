@@ -1,7 +1,7 @@
 <html>
 <head>
 <style>
-#sanpham > div {border: 1px solid green; margin:3px}
+#sanpham > div {border: 1px solid green; margin:3px; white-space:pre}
 </style>
 <script type="text/javascript">
 const noiDung = {};
@@ -13,12 +13,12 @@ function layNoiDung()
 {
     alert("layTapTin");
     layTapTin("danh-sach.htm"). then (danhSach => tachDanhSach(danhSach)). then(kq => {
-        alert (noiDung);/*
+        /*alert (noiDung);
         alert(noiDung["day-keo.htm"]);
         alert(noiDung["chi-may-nho.htm"]);*/
-    for (sanPham in noiDung) {
-        document.write(noiDung[sanPham]);
-    }
+        for (sanPham in noiDung) {
+            document.write(noiDung[sanPham]);
+        }
     });
     alert("het layTapTin");
 }
