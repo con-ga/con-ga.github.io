@@ -1,23 +1,24 @@
 <html>
 <head>
 <script type="text/javascript">
-/*
+
 function layTapTin(tapTin)
 {
     return fetch(tapTin). then(response => response.text());
-}*/
+}
 function layNoiDung()
+{
     alert("layTapTin");
-    //layTapTin("danh-sach.htm"). then (alert);//(danhSach => tachDanhSach(danhSach)). then(mang => mang.forEach(alert));
+    layTapTin("danh-sach.htm"). then (alert);//(danhSach => tachDanhSach(danhSach)). then(mang => mang.forEach(alert));
     alert("het layTapTin");
 }
-/*
+
 function tachDanhSach(danhSach)
 {
     //const mang = [];
     const mang = danhSach.split("\r\n");
     return Promise.resolve(mang.map(nm => nm + "%"));
-}*/
+}
 </script>
 </head>
 <body>16
