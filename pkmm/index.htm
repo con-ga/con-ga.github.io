@@ -1,7 +1,7 @@
 <html>
 <head>
 <script type="text/javascript">
-
+const noiDung = {};
 function layTapTin(tapTin)
 {
     return fetch(tapTin). then(response => response.text());
@@ -9,7 +9,11 @@ function layTapTin(tapTin)
 function layNoiDung()
 {
     alert("layTapTin");
-    layTapTin("danh-sach.htm"). then (danhSach => tachDanhSach(danhSach)). then(mang => mang.forEach(alert));
+    layTapTin("danh-sach.htm"). then (danhSach => tachDanhSach(danhSach)). then(kq => {
+        alert (noiDung);
+        alert(noiDung["day-keo.htm"]);
+        alert(noiDung["chi-may-nho.htm"]);
+    });
     alert("het layTapTin");
 }
 
@@ -17,7 +21,13 @@ function tachDanhSach(danhSach)
 {
     //const mang = [];
     const mang = danhSach.split("\r\n");
-    return Promise.resolve(mang.map(nm => nm + "%"));
+    return Promise.all(
+        danhSach.map(tapTin => {
+            layTapTin(tapTin).then(nd => {
+                noiDung[tapTin] = nd;
+            });
+        });
+    );
 }
 </script>
 </head>
