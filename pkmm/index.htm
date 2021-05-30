@@ -43,12 +43,13 @@ function tachDanhSach(danhSach)
     const mang = danhSach.split("\r\n").filter(val => val != "");;
     let myPromise = Promise.resolve(1);
     mang.forEach(tapTin => {
-        myPromise = myPromise.then(() =>
+        myPromise = myPromise.then(() => {
             return layTapTin(tapTin).then(nd => {
                 alert(nd);
             });
-        );
+        });
     });
+    return myPromise;
     /*return Promise.all(
         mang.map(tapTin => {
             return layTapTin(tapTin).then(nd => {
