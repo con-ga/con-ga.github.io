@@ -9,7 +9,7 @@ function layTapTin(tapTin)
 function layNoiDung()
 {
     alert("layTapTin");
-    /*layTapTin("danh-sach.htm"). then (danhSach => tachDanhSach(danhSach));/*. then(kq => {
+    layTapTin("danh-sach.htm"). then (danhSach => tachDanhSach(danhSach));/*. then(kq => {
         alert (noiDung);
         alert(noiDung["day-keo.htm"]);
         alert(noiDung["chi-may-nho.htm"]);
@@ -26,7 +26,7 @@ function tachDanhSach(danhSach)
             return layTapTin(tapTin).then(alert);/*(nd => {
                 noiDung[tapTin] = nd;
             });*/
-        });
+        })
     );
 }
 </script>
