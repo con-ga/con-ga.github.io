@@ -16,9 +16,11 @@ function layNoiDung()
         /*alert (noiDung);
         alert(noiDung["day-keo.htm"]);
         alert(noiDung["chi-may-nho.htm"]);*/
+        let html = "";
         for (sanPham in noiDung) {
-            document.write(noiDung[sanPham]);
+            html += noiDung[sanPham];
         }
+        document.getElementById("sanpham").innerHTML = html;
     });
     alert("het layTapTin");
 }
