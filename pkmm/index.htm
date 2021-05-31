@@ -46,7 +46,7 @@ function tachDanhSach(danhSach)
         myPromise = myPromise.then(() => {
             return layTapTin(tapTin).then(nd => {
                 noiDung[tapTin] = nd;
-            });
+            }).catch(() => {});
         });
     });
     return myPromise;
