@@ -44,7 +44,10 @@ function tachDanhSach(danhSach)
     let myPromise = Promise.resolve(1);
     mang.forEach(tapTin => {
         myPromise = myPromise.then(() => {
-            return layTapTin(tapTin).then(nd => {
+            return fetch(tapTin).then(resp => {
+                if (resp.status == 404) throw new Error();
+                else return resp.text();
+            }).then(nd => {
                 noiDung[tapTin] = nd;
             }).catch(() => {});
         });
