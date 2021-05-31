@@ -40,7 +40,11 @@ function tachDanhSach1(danhSach)
 function tachDanhSach(danhSach)
 {
     //const mang = [];
-    const mang = danhSach.split("\r\n").filter(val => val != "");
+    const mang = danhSach.split("\r\n").
+        filter(val => {
+            return !mang.match(/^[\.\/#]/) &&
+                !mang.match(/\/\./); 
+        });
     let myPromise = Promise.resolve(1);
     mang.forEach(tapTin => {
         myPromise = myPromise.then(() => {
