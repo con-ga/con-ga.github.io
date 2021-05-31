@@ -42,7 +42,7 @@ function tachDanhSach(danhSach)
     //const mang = [];
     const mang = danhSach.split(/\s+/).
         filter(val => {
-            return !val && !val.match(/^[\.\/#]/) &&
+            return val && !val.match(/^[\.\/#]/) &&
                 !val.match(/\/\./); 
         });
     let myPromise = Promise.resolve(1);
