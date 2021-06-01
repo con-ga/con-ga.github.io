@@ -1,4 +1,4 @@
-var list = [];
+var list = [];//
 self.addEventListener("install", function() {});
 self.addEventListener("fetch", function(event) {
     event.respondWith((function() {
