@@ -1,6 +1,6 @@
 self.addEventListener("install", function() {
     caches.open(myCache).then(cache => {
-        cache.put(capNhat, new Response("abcdefg"));
+        cache.put(capNhat, new Response("abcdefg1234"));
     });
 });
 //3
