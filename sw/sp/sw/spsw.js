@@ -13,9 +13,9 @@ function themCapNhat(link, date)
 self.addEventListener("fetch", function(event) {
     event.respondWith(
         caches.open(myCache).then((cache) =>
-            cache.match(capNhat).then(response =>
+            cache.match(capNhat)/*.then(response =>
                 {return response;}
-            )
+            )*/
         )
     )
 });
