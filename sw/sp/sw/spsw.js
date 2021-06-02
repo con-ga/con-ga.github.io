@@ -3,7 +3,7 @@ self.addEventListener("install", function() {
         cache.put(capNhat, new Response("abcdefg1234"));
     });
 });
-//3
+//4
 const myCache = "cache";
 const capNhat = "capNhat";
 function themCapNhat(link, date)
