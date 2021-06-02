@@ -8,8 +8,6 @@ const capNhat = "capNhat";
 function themCapNhat(link, date)
 {
     
-    ).then((response) => 
-        res
 }
 self.addEventListener("fetch", function(event) {
     event.respondWith(caches.open(myCache).then((cache) =>
