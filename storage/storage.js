@@ -9,7 +9,10 @@ function getItem(ten)
 {
     return mcache.then(cache => cache.match(key)).
         then(response => response.json()
-        ).then(data => data[ten]
+        ).then(txt => {
+            alert(JSON.stringify(txt));
+            return txt;
+        }).then(data => data[ten]
         );
 }
 function setItem(ten, giaTri)
