@@ -18,9 +18,11 @@ function getItem(ten)
 function setItem(ten, giaTri)
 {
     let resp;
+    alert("set item 1");
     mcache.then(cache => cache.match(key)).
         then(response => {
             resp = response;
+            alert(resp.url + " url");
             return response.json();
         }).then(data => {
             if (!data) {
