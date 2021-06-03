@@ -6,8 +6,8 @@ function run()
 let url = "https://www.gmail.com";
 fetch(url).
     then(response => response.text()).
-    then(alert).
-    catch(err => alert("Error: " + err));
+    then(alert);/*.
+    catch(err => alert("Error: " + err));*/
 }
 </script>
 <button onclick= "run()">get</button>
