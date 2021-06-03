@@ -45,7 +45,9 @@ function echo(msg)
 function keys()
 {
     alert("keys 1");
-    mcache.then(cache => cache.keys()).then(alert);
+    mcache.then(cache => cache.keys()).
+        then(keys => keys.map(req=> req.url)).
+        then(alert);
     alert("keys 2");
 }
 export {makeStorage, setItem, getItem, echo, keys};
