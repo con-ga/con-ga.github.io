@@ -36,4 +36,4 @@ function main()
     layNoiDung({}, fetch);
     alert("het layNoiDung");
 }
-alert("main.js 4");
+alert("main.js 5");
