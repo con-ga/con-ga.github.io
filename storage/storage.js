@@ -15,12 +15,12 @@ function getItem(ten)
         }).then(data => data[ten]
         );
 }
-function setItem(ten, giaTri)
+async unction setItem(ten, giaTri)
 {
     //let resp;
     alert("set item 1");
     let myCache;
-    mcache.then(cache => {
+    await mcache.then(cache => {
             myCache = cache;
             return cache.match(key);
         }).
