@@ -33,7 +33,7 @@ function setItem(ten, giaTri)
             mcache.then(cache => {cache.
                 put(resp.url, new Response(JSON.stringify(data)));
             });       
-    })
+        }).catch(alert);
 }
 function echo(msg)
 {
