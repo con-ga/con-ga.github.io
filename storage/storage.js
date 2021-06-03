@@ -39,4 +39,8 @@ function echo(msg)
 {
     alert(msg);
 }
-export {makeStorage, setItem, getItem, echo};
+function keys()
+{
+    mcache.keys().then(alert);
+}
+export {makeStorage, setItem, getItem, echo, keys};
