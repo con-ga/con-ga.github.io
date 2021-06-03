@@ -6,6 +6,7 @@ function tachDanhSach(str)
             bl = bl && !s.match(/\/\./);
             return bl;
         });
+    return danhSach;
 }
 function layNoiDung(noiDung, hamLay)
 {
