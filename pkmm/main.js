@@ -30,3 +30,4 @@ function main()
 {
     layNoiDung({}, fetch);
 }
+alert("main.js 1");
