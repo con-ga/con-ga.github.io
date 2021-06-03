@@ -19,6 +19,7 @@ function layNoiDung(noiDung, hamLay)
     }).then(txt => {
         return tachDanhSach(txt);
     }).then(danhSach => {
+        alert(danhSach);
         let promise = Promise.resolve(true);
         danhSach.forEach(tapTin => {
             promise = promise.then(() => {
