@@ -4,10 +4,11 @@
 </head>
 <body>19
 <script type="module">
-async function run() {
-alert("bonjour");
 import {makeStorage, getItem, setItem, echo, keys}
 from "./storage.js";
+
+async function run() {
+alert("bonjour");
 echo("xin chào");
 makeStorage(window.caches.open("cache_"),"khóa");
 echo("setItem");
