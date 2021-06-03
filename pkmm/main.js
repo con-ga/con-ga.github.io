@@ -11,7 +11,10 @@ function layNoiDung(noiDung, hamLay)
 {
     hamLay("danh-sach.htm").then(response =>
         response.text()
-    ).catch(err => {
+    ).then(txt => {
+        alert(txt);
+        return txt;
+    }).catch(err => {
 
     }).then(txt => {
         return tachDanhSach(txt);
