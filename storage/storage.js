@@ -17,21 +17,24 @@ function getItem(ten)
 }
 function setItem(ten, giaTri)
 {
-    let resp;
+    //let resp;
     alert("set item 1");
     mcache.then(cache => cache.match(key)).
         then(response => {
-            resp = response;
-            alert(resp.url + " url");
+            if(!response) {
+                return {};
+            }
+            //resp = response;
+            alert(/*resp.url*/key + " url");
             return response.json();
         }).then(data => {
-            if (!data) {
+            /*if (!data) {
                 data = {};
-            }
+            }*/
             data[ten] = giaTri;
             alert("data json:\n" + JSON.stringify(data));
             mcache.then(cache => {cache.
-                put(resp.url, new Response(JSON.stringify(data)));
+                put(key, new Response(JSON.stringify(data)));
             });       
         }).catch(alert);
 }
