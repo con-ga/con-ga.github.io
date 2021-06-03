@@ -1,0 +1,10 @@
+<body>
+<script>
+let obj = {};
+let url = "https://www.google.com";
+fetch(url).
+    then(response => response.text()).
+    then(alert).
+    catch(err => alert("Error: " + err));
+</script>
+</body>
