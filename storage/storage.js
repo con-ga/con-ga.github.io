@@ -15,7 +15,7 @@ function getItem(ten)
         }).then(data => data[ten]
         );
 }
-async unction setItem(ten, giaTri)
+async function setItem(ten, giaTri)
 {
     //let resp;
     alert("set item 1");
