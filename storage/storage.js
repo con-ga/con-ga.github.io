@@ -27,6 +27,7 @@ function setItem(ten, giaTri)
                 data = {};
             }
             data[ten] = giaTri;
+            alert("data json:\n" + JSON.stringify(data));
             mcache.then(cache => {cache.
                 put(resp.url, new Response(JSON.stringify(data)));
             });       
