@@ -1,13 +1,13 @@
-let cache;
+let mcache;
 let key;
 function makeStorage(myCache, myKey)
 {
-    cache = myCache;
+    mcache = myCache;
     key = myKey;
 }
 function getItem(ten)
 {
-    return cache.match(key).
+    return mcache.then(cache => cache.match(key)).
         then(response => response.json()
         ).then(data => data[ten]
         );
