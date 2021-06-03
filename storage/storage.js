@@ -27,4 +27,8 @@ function setItem(ten, giaTri)
             cache.match(key).put(resp.url, new Response(JSON.stringify(data)));
         })
 }
-export {makeStorage, setItem, getItem};
+function echo(msg)
+{
+    alert(msg);
+}
+export {makeStorage, setItem, getItem, echo};
