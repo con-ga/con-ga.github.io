@@ -4,18 +4,21 @@
 </head>
 <body>18
 <script type="module">
+async function run() {
 alert("bonjour");
 import {makeStorage, getItem, setItem, echo, keys}
 from "./storage.js";
 echo("xin chào");
 makeStorage(window.caches.open("cache_"),"khóa");
 echo("setItem");
-setItem("khang", "vụng về");
+await setItem("khang", "khéo léo");
 echo("getItem");
 getItem("khang").then(alert);
 alert("au revoir");
 keys();
 alert("tạm biệt");
+}
+run():
 </script>
 </body>
 </html>
