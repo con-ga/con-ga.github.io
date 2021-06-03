@@ -15,7 +15,7 @@ function getItem(ten)
 function setItem(ten, giaTri)
 {
     let resp;
-    cache.match(key).
+    mcache.then(cache => cache.match(key)).
         then(response => {
             resp = response;
             return response.json();
@@ -24,8 +24,10 @@ function setItem(ten, giaTri)
                 data = {};
             }
             data[ten] = giaTri;
-            cache.match(key).put(resp.url, new Response(JSON.stringify(data)));
-        })
+            mcache.then(cache => {cache.
+                put(resp.url, new Response(JSON.stringify(data)));
+            });       
+    })
 }
 function echo(msg)
 {
