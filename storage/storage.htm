@@ -5,7 +5,7 @@
 <body>8
 <script type="module">
 alert("bonjour");
-import {makeStorage, getItem, setItem, echo}
+import {makeStorage, getItem, setItem, echo, keys}
 from "./storage.js";
 echo("xin chào");
 makeStorage(window.caches.open("cache_"),"key");
@@ -14,6 +14,7 @@ setItem("khoa", "ngu ngốc");
 echo("getItem");
 getItem("khoa").then(alert);
 alert("au revoir");
+keys();
 </script>
 </body>
 </html>
