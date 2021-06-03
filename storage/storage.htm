@@ -8,8 +8,10 @@ alert("bonjour");
 import {makeStorage, getItem, setItem, echo}
 from "./storage.js";
 echo("xin chào");
-makeStorage(window.caches,"key");
+makeStorage(window.caches.open("cache_"),"key");
+echo("setItem");
 setItem("khoa", "ngu ngốc");
+echo("getItem");
 getItem("khoa").then(alert);
 alert("au revoir");
 </script>
