@@ -28,6 +28,8 @@ function layNoiDung(noiDung, hamLay)
 }
 function main()
 {
+    alert("layNoiDung");
     layNoiDung({}, fetch);
+    alert("het layNoiDung");
 }
 alert("main.js 1");
