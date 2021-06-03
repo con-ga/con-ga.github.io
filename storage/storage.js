@@ -42,7 +42,7 @@ function echo(msg)
 function keys()
 {
     alert("keys 1");
-    mcache.keys().then(alert);
+    mcache.then(cache => cache.keys()).then(alert);
     alert("keys 2");
 }
 export {makeStorage, setItem, getItem, echo, keys};
