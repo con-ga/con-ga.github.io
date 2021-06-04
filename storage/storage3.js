@@ -10,7 +10,7 @@ function makeStorage(caches)
 function setItem(ten, giaTri)
 {
     let dat;
-    promiseSet = myCaches.open(CACHENAME).
+    myCaches.open(CACHENAME).
         then(cache => {
             return cache.match(KEY);
         }).
@@ -40,12 +40,12 @@ function setItem(ten, giaTri)
 }
 function getItem(ten)
 {
-    return promiseSet.then(() => {
+    
         return myCaches.open(CACHENAME).
             then(cache => cache.match(KEY)).
             then(response => response.json()).
             then(data => data[ten]).catch(alert);
-    });
+    
 }
 function echo(msg)
 {
