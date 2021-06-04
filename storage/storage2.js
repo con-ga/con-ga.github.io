@@ -4,7 +4,7 @@ const KEY = "dulieu";
 let promiseSet;
 function makeStorage(caches)
 {
-    myCaches = caches;
+    //myCaches = caches;
 }
 function setItem(ten, giaTri)
 {/*
