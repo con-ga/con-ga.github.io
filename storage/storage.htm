@@ -7,12 +7,12 @@
 import {makeStorage, getItem, setItem, echo/*, keys*/}
 from "./storage2.js";
 
-function run() {
+async function run() {
 alert("bonjour");
 echo("xin chào");
 makeStorage(window.caches);
 echo("setItem");
-setItem("khang", "mạnh mẽ");
+await setItem("khang", "hài hướt");
 echo("getItem");
 Promise.resolve(1).
    then(() => {
