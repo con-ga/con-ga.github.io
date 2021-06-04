@@ -20,7 +20,7 @@ function setItem(ten, giaTri)
         }).
         then(data => {
             data[ten] = giaTri;
-            myCache.open(CACHENAME).
+            myCaches.open(CACHENAME).
                 then(cache => {
                    cache.put(KEY, new Response(JSON.stringify(data))); 
                 })
