@@ -2,13 +2,14 @@ let  myCaches;
 const CACHENAME = "datacache";
 const KEY = "dulieu";
 let promiseSet;
-let dat;
+//let dat;
 function makeStorage(caches)
 {
     myCaches = caches;
 }
 function setItem(ten, giaTri)
 {
+    let dat;
     promiseSet = myCaches.open(CACHENAME).
         then(cache => {
             return cache.match(KEY);
