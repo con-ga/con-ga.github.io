@@ -2,6 +2,7 @@ let myCaches;
 const CACHENAME = "datacache";
 const KEY = "dulieu";
 let promiseSet;
+let dat;
 function makeStorage(caches)
 {
     myCaches = caches;
@@ -19,13 +20,21 @@ function setItem(ten, giaTri)
             }
             return response.json();
         }).
-        then(data => {
+        /*then(data => {
             data[ten] = giaTri;
             alert(JSON.stringify(data));
             myCaches.open(CACHENAME).
                 then(cache => {
                    cache.put(KEY, new Response(JSON.stringify(data))); 
                 }).catch(msg => alert("open cache: " + msg));
+        }).catch(alert);*/
+        then(data => {
+            data[ten] = giaTri;
+            dat = data;
+            alert("data:\n" + JSON.stringify(data));
+            return myCaches.open(CACHENAME);
+        }).then(cache => {
+            cache.put(KEY, new Response(JSON.stringify(dat)));
         }).catch(alert);
 }
 function getItem(ten)
