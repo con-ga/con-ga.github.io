@@ -39,4 +39,4 @@ function echo(msg)
 {
     alert(msg);
 }
-export {makeStorage, setItem, getItem, echo}
+export {makeStorage, setItem, getItem, echo};
