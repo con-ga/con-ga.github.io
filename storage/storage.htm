@@ -4,20 +4,20 @@
 </head>
 <body>20
 <script type="module">
-import {makeStorage, getItem, setItem, echo, keys}
-from "./storage.js";
+import {makeStorage, getItem, setItem, echo/*, keys*/}
+from "./storage2.js";
 
-async function run() {
+function run() {
 alert("bonjour");
 echo("xin chào");
-makeStorage(window.caches.open("cache_"),"khóa");
+makeStorage(window.caches);
 echo("setItem");
-await setItem("khang", "khéo léo");
+setItem("khang", "khéo léo");
 echo("getItem");
 getItem("khang").then(alert);
-alert("au revoir");
-keys();
-alert("tạm biệt");
+echo("au revoir");
+//keys();
+//alert("tạm biệt");
 }
 run():
 </script>
