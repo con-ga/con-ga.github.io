@@ -33,7 +33,7 @@ function getItem(ten)
             then(cache => cache.match(KEY)).
             then(response => response.json()).
             then(data => data[ten]).catch(alert);
-    })
+    });
 }
 function echo(msg)
 {
