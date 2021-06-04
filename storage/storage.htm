@@ -12,9 +12,13 @@ alert("bonjour");
 echo("xin chào");
 makeStorage(window.caches);
 echo("setItem");
-setItem("khang", "năng động");
+setItem("khang", "mạnh mẽ");
 echo("getItem");
-getItem("khang").then(alert).catch(alert);
+Promise.resolve(1).
+   then(() => {
+       return getItem("khang");
+   }).
+   then(alert).catch(alert);
 echo("au revoir");
 //keys();
 //alert("tạm biệt");
