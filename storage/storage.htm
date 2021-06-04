@@ -8,7 +8,7 @@ import {makeStorage, getItem, setItem, echo/*, keys*/}
 from "./storage2.js";
 
 function run() {
-let val = document.getElementById("value").value;
+let val = document.getElementById("valuea").value;
 //alert("bonjour");
 //echo("xin chào");
 makeStorage(window.caches);
@@ -26,7 +26,7 @@ echo("au revoir");
 }
 //run();
 </script>
-<textarea id=value></textarea>
+<textarea id=valuea></textarea>
 <button onclick ="run()">set</button>
 </body>
 </html>
