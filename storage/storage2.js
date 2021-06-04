@@ -14,12 +14,14 @@ function setItem(ten, giaTri)
         }).
         then(response => {
             if (!response) {
+                alert("{}");
                 return {};
             }
             return response.json();
         }).
         then(data => {
             data[ten] = giaTri;
+            alert(JSON.stringify(data));
             myCaches.open(CACHENAME).
                 then(cache => {
                    cache.put(KEY, new Response(JSON.stringify(data))); 
