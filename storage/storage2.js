@@ -1,4 +1,4 @@
-let myCaches;
+let  myCaches;
 const CACHENAME = "datacache";
 const KEY = "dulieu";
 let promiseSet;
