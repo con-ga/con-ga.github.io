@@ -26,7 +26,7 @@ function setItem(ten, giaTri)
                 then(cache => {
                    cache.put(KEY, new Response(JSON.stringify(data))); 
                 }).catch(msg => alert("open cache: " + msg));
-        }).catch(err);
+        }).catch(alert);
 }
 function getItem(ten)
 {
