@@ -1,0 +1,19 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+function hello(msg)
+{
+    alert(msg);
+}
+function callParentFunc(msg)
+{
+    let doc = window.parent;
+    doc.xinchao(msg);
+}    
+</script>
+</head>
+<body>
+<button onclick="callParentFunc('Bonjour');">bonjour</button>
+</body>    
+</html>

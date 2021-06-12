@@ -1,0 +1,28 @@
+<html>
+<head>
+<script>
+function callIframeFunc(msg)
+{
+    let ifrdoc = document.all.ifr.contentWindow;
+    ifrdoc.hello(msg);
+}
+function xinchao(msg)
+{
+    alert(msg);
+}
+function content()
+{
+    let doc = document.all.ifr.contentWindow.document;
+    alert(doc.getElementsByTagName[0].innerHTML);
+}
+</script>        
+</head>
+<body>
+<iframe id="ifr" src="iframe-doc.htm">
+    </iframe>
+<button onclick="callIframeFunc('hello');">hello</button>
+<br />
+<iframe id="cont" style="border:1px dotted green" src="kcn.txt"></iframe></body>    
+<br />
+<button onclick="content();">get content</button>
+</html>
