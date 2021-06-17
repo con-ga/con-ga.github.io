@@ -5,5 +5,9 @@ self.addEventListener("install", function (evt) {
 self.addEventListener("fetch", function (evt) {
     /*self.registration.pushNotification("Xin chao (" + evt.request.url + ")",
     {body : "xyz"});*/
-    evt.respondWith(new Response("cdefgab<hr />" + evt.request.url));
+    if (!evt.request.url.contains("app.js")) {
+        evt.respondWith(new Response("cdefgab<hr />" + evt.request.url));
+        return;
+    }
+    evt.respondWith(fetch("app.js"));
 });
