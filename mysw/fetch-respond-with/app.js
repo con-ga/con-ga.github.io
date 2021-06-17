@@ -11,4 +11,4 @@ self.addEventListener("fetch", function (evt) {
     //}
     //evt.respondWith(fetch("app2.js"));
 });
-////
+//
