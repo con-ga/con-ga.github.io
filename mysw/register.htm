@@ -1,0 +1,16 @@
+<body>
+<input id=swname type = text />
+<input type=button value="Register" onclick="register(swname.value)" />
+<script>
+function register(file)
+{
+    if("serviceWorker" in navigator) {
+	navigator.serviceWorker.register(file)
+    .then(reg => alert('SW registered!'))
+    .catch(err => alert('Boo!'));
+    } else {
+        alert("This browser does not support service worker");
+    }
+}
+</script>
+</body>
