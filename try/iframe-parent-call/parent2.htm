@@ -1,0 +1,12 @@
+<html>
+<body>
+<script >
+addEventListener("message", function (ev) {
+    alert(ev.data + "\n" + ev.origin);
+});   
+</script>
+<iframe id="ifr" src="ifr2.htm" width=250 height= 120 style="border:1px dotted black;background:yellow">
+</iframe>
+<button onclick="document.getElementById('ifr').contentWindow.postMessage('hello from parent','*');">Echo</iframe>
+</body>    
+</html>
