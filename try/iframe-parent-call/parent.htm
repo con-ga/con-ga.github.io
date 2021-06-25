@@ -1,0 +1,14 @@
+<html>
+<body>
+<script >
+function changeIfrHei(hei)
+{
+    alert("call parent func");
+    document.getElementById("ifr").style.height = 200;
+}    
+</script>
+<iframe id="ifr" src="ifr.htm" width=250 height= 120 style="border:1px dotted black;background:yellow">
+</iframe>
+<button onclick="document.getElementById('ifr').contentWindow.echo('Hello from iframe');">Echo</iframe>
+</body>    
+</html>
