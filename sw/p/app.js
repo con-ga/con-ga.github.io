@@ -3,7 +3,7 @@ addEventListener("install", function () {});
 addEventListener("fetch", function (ev) {
     let url = ev.request.url;
     let resp;
-    caches.open(OFFLINE)
+    /*caches.open(OFFLINE)
     .then(cache => cache.match(url))
     .then(response => {
         if (response == undefined) {
@@ -13,7 +13,7 @@ addEventListener("fetch", function (ev) {
             resp = response;
         }
         ev.respondWith(resp);
-    }).catch(() => {
+    }).catch(() => {*/
         ev.respondWith(new Response("error"));
-    });
+    //});
 });
