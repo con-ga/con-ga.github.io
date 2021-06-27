@@ -1,3 +1,4 @@
+const OFFLINE = "offline";
 addEventListener("install", function () {});
 addEventListener("fetch", function (ev) {
     let url = ev.request.url;
@@ -11,5 +12,5 @@ addEventListener("fetch", function (ev) {
             
             ev.respondWith(response);
         }
-    })
+    });
 });
