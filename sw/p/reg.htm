@@ -4,7 +4,7 @@ function regsw()
 {
 if ('serviceWorker' in navigator) {
   //window.addEventListener('load', function() {
-    navigator.serviceWorker.register('app.js', {scope : "scope/"}).then(function(registration) {
+    navigator.serviceWorker.register('app.js'/*, {scope : "scope/"}*/).then(function(registration) {
       // Registration was successful
       alert('ServiceWorker registration successful with scope: ' + registration.scope);
     }, function(err) {
