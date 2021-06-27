@@ -16,4 +16,4 @@ addEventListener("fetch", function (ev) {
     }).catch(() => {
         ev.respondWith(new Response("error, " + url));
     });
-});//
+});
