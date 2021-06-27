@@ -13,5 +13,7 @@ addEventListener("fetch", function (ev) {
             resp = response;
         }
         ev.respondWith(resp);
+    }).catch(() => {
+        ev.respondWith(new Response("error"));
     });
 });
