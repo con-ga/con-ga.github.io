@@ -1,0 +1,21 @@
+<html>
+<head>
+<script src="rotating-object.js"></script>
+
+</head>
+<body>
+<canvas id="canvas" style="background:yellow" width=400 height=300></canvas>
+<script>
+const ctx = canvas.getContext("2d");
+const render = new Render();
+ctx.fillStyle="blue";
+render.render(ctx);
+ctx.translate(200,150);
+setInterval(() => {
+    ctx.clearRect(-500,-500,1000,1000);
+    render.render(ctx);
+    render.next();
+}, 50);    
+</script>
+</body>   
+</html>
