@@ -1,0 +1,16 @@
+<body>
+Register pkmm.js
+<script>
+if ('serviceWorker' in navigator) {
+  // Register a service worker hosted at the root of the
+  // site using the default scope.
+  navigator.serviceWorker.register('./ifmodifiedsince.js').then(function(registration) {
+    alert('Service worker registration succeeded:', registration);
+  }, /*catch*/ function(error) {
+    alert('Service worker registration failed:', error);
+  });
+} else {
+  alert('Service workers are not supported.');
+}
+</script>
+</body>
