@@ -10,11 +10,11 @@ function reg()
             // event is a MessageEvent object
             const resp = event.data;
             alert("status " + resp.status + " " + resp.lmodified);
-            //if (resp.status == 200) {
+            if (resp.status == 200) {
                 localStorage.setItem("lmodified", resp.lmodified);
                 alert("lcstr " + localStorage.getItem("lmodified"));
                 alert(resp.text);
-           //}
+           }
         });
     }
 }
