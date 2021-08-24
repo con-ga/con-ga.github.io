@@ -1,10 +1,10 @@
-<body>
+<body>13 17
 <script>
 function reg()
 {
     // in the page being controlled
     if (navigator.serviceWorker) {
-        navigator.serviceWorker.register('ifmodifiedsince.js');
+        //navigator.serviceWorker.register('ifmodifiedsince.js');
 
         navigator.serviceWorker.addEventListener('message', event => {
             // event is a MessageEvent object
@@ -24,7 +24,10 @@ function request(url)
         registration.active.postMessage({url : url, lmodified : lmodified});
     });
 }
+alert(1);
 reg();
+alert(3);
 request("data.htm");
+alert(5);
 </script>
 </body>
