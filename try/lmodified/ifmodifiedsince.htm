@@ -1,0 +1,28 @@
+<html>
+<head>
+<script>
+function request(url)
+{
+    const date = localStorage.getItem("modified");
+    const headers = new Headers();
+    if (date != undefined) {
+        alert("$" + date);
+        headers.append("If-Modified-Since", date);
+    }
+    fetch(url, {headers : headers})
+    .then(resp => {
+        alert(resp.status);
+        if (resp.status == 200) {
+            const datecur = resp.headers.get("Date");
+            const lmodified = resp.headers.get("Last-Modified");
+            alert("last modified " + lmodified);
+            localStorage.setItem("modified", datecur);
+            alert(localStorage.getItem("modified"));
+            return resp.text().then(alert);
+        }
+    });
+} 
+request("data.htm");   
+</script>
+</head>    
+</html>
