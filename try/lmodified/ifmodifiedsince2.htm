@@ -1,0 +1,30 @@
+<body>
+<script>
+function reg()
+{
+    // in the page being controlled
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register('ifmodifiedsince.js');
+
+        navigator.serviceWorker.addEventListener('message', event => {
+            // event is a MessageEvent object
+            const resp = event.data;
+            alert("status " + resp.status);
+            if (resp.status == 200) {
+                localStorage.setItem("lmodified", resp.headers.get("Last-Modified"));
+                resp.text().then(alert);
+            }
+        });
+    }
+}
+function request(url)
+{
+    let lmodified = localStorage.getItem("lmodified");    
+    navigator.serviceWorker.ready.then( registration => {
+        registration.active.postMessage({url : url, lmodified : lmodified});
+    });
+}
+reg();
+request("data.htm");
+</script>
+</body>
