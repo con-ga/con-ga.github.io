@@ -1,4 +1,4 @@
-<body>13 17
+<body>13 17 19 23 29
 <script>
 function reg()
 {
@@ -9,11 +9,12 @@ function reg()
         navigator.serviceWorker.addEventListener('message', event => {
             // event is a MessageEvent object
             const resp = event.data;
-            alert("status " + resp.status);
-            if (resp.status == 200) {
-                localStorage.setItem("lmodified", resp.headers.get("Last-Modified"));
-                resp.text().then(alert);
-            }
+            alert("status " + resp.status + " " + resp.lmodified);
+            //if (resp.status == 200) {
+                localStorage.setItem("lmodified", resp.lmodified);
+                alert("lcstr " + localStorage.getItem("lmodified"));
+                alert(resp.text);
+           //}
         });
     }
 }
@@ -22,9 +23,9 @@ function request(url)
     let lmodified = localStorage.getItem("lmodified");    
     navigator.serviceWorker.ready.then( registration => {
         registration.active.postMessage({url : url, lmodified : lmodified});
-    });
+    }).then(alert);
 }
-alert(1);
+alert(2);
 reg();
 alert(3);
 request("data.htm");
