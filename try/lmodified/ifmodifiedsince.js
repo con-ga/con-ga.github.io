@@ -4,7 +4,8 @@ self.addEventListener("install", (ev) => {
         .then(cache => cache.addAll([
             "ifmodifiedsince2.htm",
             "reg.htm",
-            "ifmodifiedsince.js"
+            "ifmodifiedsince.js",
+            "delete-caches.htm"
         ]))
     );
 });
