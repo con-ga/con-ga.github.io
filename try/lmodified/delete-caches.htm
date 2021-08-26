@@ -1,0 +1,14 @@
+<html>
+<head>
+<script>
+function deleteCaches()
+{
+    caches.keys()
+    .then(keys => keys.forEach(key => caches.delete(key)));
+}
+deleteCaches();
+</script>    
+</head>
+<body>Delete caches
+</body>    
+</html>
