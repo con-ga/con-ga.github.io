@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+.vis {display:block;width:100%;height:100%;}
+.hide {display:none}
+a {text-decoration:none;padding:10px;font-size:1em}
+.tab {color:magenta;float:left}
+.selected {font-weight:bold;float:left}
+</style>
+<script type="text/javascript">
+HTMLTextAreaElement.prototype.insertAtCaret = function (text) {
+  text = text || '';
+  if (document.selection) {
+    // IE
+    this.focus();
+    var sel = document.selection.createRange();
+    sel.text = text;
+  } else if (this.selectionStart || this.selectionStart === 0) {
+    // Others
+    var startPos = this.selectionStart;
+    var endPos = this.selectionEnd;
+    this.value = this.value.substring(0, startPos) +
+      text +
+      this.value.substring(endPos, this.value.length);
+    this.selectionStart = startPos + text.length;
+    this.selectionEnd = startPos + text.length;
+  } else {
+    this.value += text;
+  }
+};
+function getDoc(txtarea) {
+	let parser = new DOMParser();
+	let doc;
+	try {
+		doc = parser.parseFromString(txtarea.value,"text/xml");
+		}
+	catch(err) {
+		alert(err.name, err.message);
+	}
+	return doc;
+}
+function transform() {
+	let xmlDoc = getDoc(xml);
+	let xslDoc = getDoc(xsl);
+	console.log(xmlDoc, xslDoc);
+	let resultDoc;
+	let xsltProcessor = new XSLTProcessor();
+	console.log(xsltProcessor);
+	xsltProcessor.importStylesheet(xslDoc);
+	resultDoc = xsltProcessor.transformToFragment(xmlDoc, document);
+	console.log(resultDoc);
+	if (resultDoc == null) {
+		output.value="error";
+	}
+	divview.innerHTML="";
+	divview.appendChild(resultDoc);
+	let vl=divview.innerHTML.replace(/&lt;/g,"<");
+	vl = vl.replace(/&gt;/g, ">");
+	vl=vl.replace(/&quot;/g,"\"");
+	vl = vl.replace(/&apos;/g,"'");
+	vl=vl.replace(/&amp;/g,"&");
+	output.value=vl;
+	//console.log("displayed");
+}
+function save()
+{
+	if (xml.className == "vis") {
+		//alert("save xml");
+		localStorage.setItem("xml", xml.value);
+		//alert(localStorage.get("xml"));
+		return;
+	}
+	if (xsl.className == "vis") {
+		localStorage.setItem("xsl", xsl.value);
+		//alert(localStorage.get("xsl"));
+		return;
+	}
+}
+function load()
+{
+	//alert(localStorage.get("xml"));
+	xml.value = localStorage.getItem("xml");
+	xsl.value = localStorage.getItem("xsl");
+}
+function show(what)
+{
+	if (what == "xml") {
+		xmll.className = "selected";
+		xsll.className = "tab";
+		outputl.className = "tab";
+		xml.className = "vis";
+		xsl.className = "hide";
+		output.className= "hide";
+		keys.style.display="block";
+		//keys.className="vis";
+		keys.style.height="1em";
+		return;
+	}
+	if (what == "xsl") {
+		xmll.className = "tab";
+		xsll.className = "selected";
+		outputl.className = "tab";
+		xml.className = "hide";
+		xsl.className = "vis";
+		output.className= "hide";
+		keys.style.display="block";
+		keys.style.height="1em";
+		//keys.className="vis";
+		return;
+	}
+	if (what == "output") {
+		xmll.className = "tab";
+		xsll.className = "tab";
+		outputl.className = "selected";
+		xml.className = "hide";
+		xsl.className = "hide";
+		output.className= "vis";
+		keys.style.display="none"
+		transform();
+		return;
+	}
+}
+</script>
+</head>
+<body>
+<div id=divview style="display:none"></div>
+<table border="1" cellspacing=1 style="width:100%;height:100%">
+<tr style="height:1em">
+<td><a id="xmll" href="javascript:show('xml')" class=tab>XML</a>
+<a id="xsll" href="javascript:show('xsl')" class=tab>XSL</a>
+<a id="outputl" href="javascript:show('output')" class=selected>Output</a>
+<a href="javascript:save()" style="float:right">Save</a></td></tr>
+<tr>
+<td>
+<textarea id=xml class=hide><cd><title>Toc hat</title>
+<artist>Doan Trang</artist></cd></textarea>
+<textarea id=xsl class=hide>xsl</textarea>
+<!--<div id= output class="vis"   style="bbackground:red;overflow-y:scroll;overflow-x:scroll"></div>
+--><textarea id=output class=vis></textarea></td></tr>
+<tr id="keys" style="height:1em">
+<td>
+<button onclick="xml.insertAtCaret('chao');xml.focus();">&lt;</button>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+load();
+</script>
+</body>
+</html>
