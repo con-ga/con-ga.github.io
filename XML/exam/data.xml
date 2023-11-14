@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet version="1.0" type="text/xsl" href="tree.xsl" ?>
+<!--?xml-stylesheet type="text/css" href="css.css"?-->
+<root>abc
+	<dir name="dir 1">
+		<dir name="dir 1-1">
+			<dir name="dir 1-1-1"/>
+			<dir name="dir 1-1-2"/>
+		</dir>
+	</dir>
+	<dir name="dir 2">
+		<dir name="dir 2-1">
+			<dir name="dir 2-1-1">
+				<dir name="dir 2-1-1-1"/>
+			</dir>
+		</dir>
+	</dir>
+</root>
