@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lưu Requests vào Hàng Chờ trong Background Sync</title>
+</head>
+<body>
+    <h1>Lưu Requests vào Hàng Chờ trong Background Sync</h1>
+    <p>Để lưu các yêu cầu (requests) vào hàng chờ (queue) trong Background Sync của trình duyệt, bạn có thể làm theo các bước sau.</p>
+    <h2>1. Cài đặt Service Worker</h2>
+    <pre>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(() => console.log('Service Worker registered'))
+    .catch(err => console.error('Service Worker registration failed:', err));
+}
+    </pre>
+    <h2>2. Thêm Background Sync vào Service Worker</h2>
+    <pre>
+self.addEventListener('install', (event) => {
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-requests') {
+    event.waitUntil(syncQueuedRequests());
+  }
+});
+    </pre>
+    <h2>3. Lưu các Yêu cầu vào IndexedDB</h2>
+    <pre>
+import { openDB } from 'idb';
+
+async function saveRequestToQueue(request) {
+  const db = await openDB('request-queue', 1, {
+    upgrade(db) {
+      db.createObjectStore('requests', { keyPath: 'id', autoIncrement: true });
+    },
+  });
+
+  await db.add('requests', {
+    url: request.url,
+    method: request.method,
+    body: request.body,
+    headers: [...request.headers],
+  });
+}
+    </pre>
+    <h2>4. Kích hoạt Background Sync</h2>
+    <pre>
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+  navigator.serviceWorker.ready.then((registration) => {
+    registration.sync.register('sync-requests')
+      .then(() => console.log('Background Sync registered'))
+      .catch((err) => console.error('Background Sync registration failed:', err));
+  });
+}
+    </pre>
+    <h2>5. Xử lý Hàng Chờ trong Service Worker</h2>
+    <pre>
+async function syncQueuedRequests() {
+  const db = await openDB('request-queue', 1);
+  const tx = db.transaction('requests', 'readwrite');
+  const store = tx.objectStore('requests');
+  
+  let request;
+  while ((request = await store.get(0))) {
+    try {
+      const { url, method, body, headers } = request;
+      await fetch(url, { method, body, headers: new Headers(headers) });
+      await store.delete(request.id); // Xóa request khỏi hàng chờ nếu thành công
+    } catch (err) {
+      console.error('Request failed, will retry later:', err);
+      break; // Dừng nếu gặp lỗi, để thử lại lần sau
+    }
+  }
+}
+    </pre>
+    <h2>6. Kiểm tra Trạng thái</h2>
+    <ul>
+        <li><strong>Online:</strong> Requests được gửi đi ngay lập tức.</li>
+        <li><strong>Offline:</strong> Requests được lưu vào IndexedDB và xử lý sau khi mạng khôi phục nhờ Background Sync.</li>
+    </ul>
+    <h2>Lưu ý</h2>
+    <ul>
+        <li>Background Sync chỉ hoạt động trên HTTPS.</li>
+        <li>Đảm bảo tối ưu hóa để tránh lưu trữ quá nhiều request hoặc gây quá tải khi mạng được khôi phục.</li>
+        <li>Xem xét trường hợp request yêu cầu thứ tự thực thi (thực hiện tuần tự).</li>
+    </ul>
+</body>
+</html>

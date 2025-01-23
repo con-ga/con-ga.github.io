@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự kiện Push trong Service Worker</title>
+</head>
+<body>
+    <h1>Sự kiện <code>push</code> trong Service Worker</h1>
+    <p>Sự kiện <code>push</code> trong Service Worker được sử dụng để xử lý thông báo đẩy từ máy chủ đến trình duyệt, ngay cả khi ứng dụng không đang hoạt động.</p>
+
+    <h2>1. Cách hoạt động của sự kiện <code>push</code></h2>
+    <ol>
+        <li><strong>Máy chủ gửi thông báo đẩy:</strong> Máy chủ sử dụng dịch vụ push (như Firebase Cloud Messaging) để gửi thông báo đến thiết bị của người dùng.</li>
+        <li><strong>Service Worker nhận thông báo:</strong> Khi nhận được thông báo từ dịch vụ push, Service Worker sẽ kích hoạt sự kiện <code>push</code>.</li>
+        <li><strong>Hiển thị thông báo:</strong> Service Worker sử dụng API <code>showNotification()</code> để hiển thị thông báo cho người dùng.</li>
+    </ol>
+
+    <h2>2. Đăng ký Push Notification</h2>
+    <pre><code>
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+  navigator.serviceWorker.register('/sw.js').then((registration) => {
+    console.log('Service Worker registered:', registration);
+
+    return registration.pushManager.subscribe({
+      userVisibleOnly: true, // Đảm bảo chỉ hiển thị thông báo cho người dùng
+      applicationServerKey: urlBase64ToUint8Array('<Your_Public_Key>'), // Khóa công khai của máy chủ
+    });
+  }).then((subscription) => {
+    console.log('User is subscribed:', subscription);
+    // Gửi thông tin subscription đến máy chủ để lưu trữ
+  }).catch((error) => {
+    console.error('Failed to subscribe:', error);
+  });
+}
+    </code></pre>
+
+    <h2>3. Lắng nghe sự kiện <code>push</code> trong Service Worker</h2>
+    <pre><code>
+self.addEventListener('push', (event) => {
+  console.log('[Service Worker] Push Received.');
+  console.log(`[Service Worker] Push Data: "${event.data.text()}"`);
+
+  const title = 'Thông báo mới';
+  const options = {
+    body: event.data.text(), // Dữ liệu từ máy chủ
+    icon: '/images/icon.png',
+    badge: '/images/badge.png',
+    actions: [
+      { action: 'open', title: 'Mở ứng dụng' },
+      { action: 'dismiss', title: 'Đóng' },
+    ],
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+    </code></pre>
+
+    <h2>4. Xử lý sự kiện <code>notificationclick</code></h2>
+    <pre><code>
+self.addEventListener('notificationclick', (event) => {
+  console.log('[Service Worker] Notification click Received.');
+
+  event.notification.close(); // Đóng thông báo
+
+  // Mở hoặc chuyển hướng đến URL cụ thể
+  event.waitUntil(
+    clients.openWindow('https://your-website.com')
+  );
+});
+    </code></pre>
+
+    <h2>5. Tương tác với máy chủ để gửi thông báo</h2>
+    <pre><code>
+const webPush = require('web-push');
+
+const vapidKeys = {
+  publicKey: '<Your_Public_Key>',
+  privateKey: '<Your_Private_Key>',
+};
+
+webPush.setVapidDetails(
+  'mailto:your-email@example.com',
+  vapidKeys.publicKey,
+  vapidKeys.privateKey
+);
+
+const subscription = {/* Subscription Object từ client */};
+const payload = JSON.stringify({ title: 'Thông báo từ server', body: 'Nội dung thông báo.' });
+
+webPush.sendNotification(subscription, payload)
+  .then(() => console.log('Push Notification Sent'))
+  .catch((err) => console.error('Error sending notification:', err));
+    </code></pre>
+
+    <h2>6. Lưu ý quan trọng</h2>
+    <ul>
+        <li><strong>Chỉ HTTPS:</strong> Push API và Service Worker chỉ hoạt động trên HTTPS (hoặc localhost).</li>
+        <li><strong>User Visible Requirement:</strong> Tất cả các thông báo đẩy phải hiển thị thông báo cho người dùng.</li>
+        <li><strong>Subscription:</strong> Subscription cần được lưu trữ trên máy chủ để gửi thông báo đẩy.</li>
+        <li><strong>Browser Support:</strong> Kiểm tra sự hỗ trợ của trình duyệt (hầu hết các trình duyệt hiện đại đều hỗ trợ).</li>
+    </ul>
+
+    <h2>7. Ứng dụng thực tế</h2>
+    <ul>
+        <li>Thông báo về tin tức, khuyến mãi, hoặc cập nhật quan trọng.</li>
+        <li>Tương tác với người dùng khi ứng dụng không hoạt động.</li>
+        <li>Hệ thống cảnh báo hoặc thông báo thời gian thực.</li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Worker và trạng thái</title>
+</head>
+<body>
+    <h1>Service Worker không lưu giữ trạng thái</h1>
+    <p>Service Worker không tự lưu giữ trạng thái giữa các lần khởi động. Điều này là do thiết kế của nó nhằm đảm bảo hiệu suất và bảo mật. Mỗi lần Service Worker được kích hoạt, nó bắt đầu từ trạng thái hoàn toàn mới.</p>
+
+    <h2>Tại sao Service Worker không lưu trạng thái?</h2>
+    <ul>
+        <li><strong>Thiết kế stateless:</strong> Service Worker khởi động nhanh và tắt khi không cần thiết để tiết kiệm tài nguyên.</li>
+        <li><strong>Bảo mật:</strong> Giảm nguy cơ rò rỉ dữ liệu hoặc tấn công qua việc duy trì trạng thái.</li>
+        <li><strong>Hiệu suất:</strong> Đảm bảo hoạt động hiệu quả, không chiếm dụng tài nguyên lâu dài.</li>
+    </ul>
+
+    <h2>Cách xử lý trạng thái trong Service Worker</h2>
+    <p>Để duy trì trạng thái, bạn có thể sử dụng các cơ chế lưu trữ bên ngoài:</p>
+
+    <h3>1. Sử dụng IndexedDB</h3>
+    <p>IndexedDB là lựa chọn phù hợp để lưu trữ dữ liệu lớn hoặc có cấu trúc.</p>
+    <pre><code>
+const dbPromise = indexedDB.open('service-worker-db', 1);
+
+self.addEventListener('fetch', (event) => {
+  dbPromise.onsuccess = () => {
+    const db = dbPromise.result;
+    const transaction = db.transaction(['stateStore'], 'readonly');
+    const store = transaction.objectStore('stateStore');
+    const request = store.get('offlineMode');
+    request.onsuccess = () => {
+      const offlineMode = request.result;
+      if (offlineMode) {
+        // Xử lý trạng thái offline
+      }
+    };
+  };
+});
+    </code></pre>
+
+    <h3>2. Sử dụng Cache API</h3>
+    <p>Cache API không chỉ lưu trữ tài nguyên tĩnh mà còn có thể lưu trạng thái dưới dạng JSON.</p>
+    <pre><code>
+const cacheName = 'app-state-cache';
+
+// Lưu trạng thái
+async function saveState(key, value) {
+  const cache = await caches.open(cacheName);
+  const response = new Response(JSON.stringify(value));
+  await cache.put(new Request(key), response);
+}
+
+// Lấy trạng thái
+async function getState(key) {
+  const cache = await caches.open(cacheName);
+  const response = await cache.match(new Request(key));
+  return response ? response.json() : null;
+}
+
+// Ví dụ sử dụng
+self.addEventListener('message', async (event) => {
+  if (event.data.action === 'saveState') {
+    await saveState('offlineMode', event.data.value);
+  } else if (event.data.action === 'getState') {
+    const state = await getState('offlineMode');
+    console.log('State retrieved:', state);
+  }
+});
+    </code></pre>
+
+    <h3>3. Giao tiếp với Main Thread qua postMessage</h3>
+    <p>Sử dụng <code>postMessage</code> để gửi dữ liệu trạng thái đến Main Thread và lưu giữ ở đó.</p>
+    <pre><code>
+self.addEventListener('message', (event) => {
+  if (event.data.action === 'saveState') {
+    const state = event.data.state;
+    event.source.postMessage({ message: 'State saved!', state });
+  }
+});
+    </code></pre>
+
+    <h2>Kết luận</h2>
+    <p>Service Worker không lưu trạng thái trong bộ nhớ khi không hoạt động. Để duy trì trạng thái, bạn cần sử dụng các cơ chế như <strong>IndexedDB</strong>, <strong>Cache API</strong>, hoặc giao tiếp qua <strong>postMessage</strong>. Điều này đảm bảo Service Worker vừa nhẹ nhàng vừa an toàn mà không làm giảm hiệu suất của trình duyệt.</p>
+</body>
+</html>

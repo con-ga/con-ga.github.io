@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Endpoint và Gửi Thông Báo từ PHP Server</title>
+</head>
+<body>
+    <h1>Push Endpoint và Gửi Thông Báo từ PHP Server</h1>
+
+    <h2>1. Push Endpoint là gì?</h2>
+    <p><strong>Push Endpoint</strong> là URL được cung cấp bởi dịch vụ Push Server, được sử dụng để gửi thông báo đẩy (push notification) đến một client cụ thể. URL này được tạo khi client đăng ký thông báo đẩy (push subscription).</p>
+
+    <h3>Ví dụ về một Push Endpoint:</h3>
+    <code>https://fcm.googleapis.com/fcm/send/dxk1xjsa5M...</code>
+
+    <h2>2. Gửi thông báo từ PHP Server</h2>
+    <h3>2.1. Cài đặt thư viện PHP</h3>
+    <p>Sử dụng thư viện <a href="https://github.com/web-push-libs/web-push-php" target="_blank">web-push-php</a>. Cài đặt qua Composer:</p>
+    <pre><code>composer require minishlink/web-push</code></pre>
+
+    <h3>2.2. Mã PHP Gửi Thông Báo</h3>
+    <pre><code>
+<?php
+require 'vendor/autoload.php';
+
+use Minishlink\WebPush\WebPush;
+use Minishlink\WebPush\Subscription;
+
+// Thông tin VAPID Keys
+$vapidKeys = [
+    'publicKey' => '&lt;Your_Public_Key&gt;',
+    'privateKey' => '&lt;Your_Private_Key&gt;'
+];
+
+// Tạo đối tượng WebPush
+$webPush = new WebPush([
+    'VAPID' => [
+        'subject' => 'mailto:your-email@example.com',
+        'publicKey' => $vapidKeys['publicKey'],
+        'privateKey' => $vapidKeys['privateKey'],
+    ],
+]);
+
+// Thông tin subscription của client
+$subscription = Subscription::create([
+    'endpoint' => 'https://fcm.googleapis.com/fcm/send/dxk1xjsa5M...',
+    'keys' => [
+        'p256dh' => '&lt;P256DH_Key&gt;',
+        'auth' => '&lt;Auth_Key&gt;',
+    ],
+]);
+
+// Nội dung thông báo
+$payload = json_encode([
+    'title' => 'Thông báo từ Server!',
+    'body' => 'Đây là nội dung thông báo.',
+    'icon' => '/images/icon.png',
+    'url' => 'https://your-website.com',
+]);
+
+// Gửi thông báo
+$result = $webPush->sendOneNotification($subscription, $payload);
+
+// Kiểm tra kết quả
+foreach ($webPush->flush() as $report) {
+    $endpoint = $report->getRequest()->getUri()->__toString();
+    if ($report->isSuccess()) {
+        echo "Thông báo đã được gửi thành công tới {$endpoint}.";
+    } else {
+        echo "Lỗi khi gửi tới {$endpoint}: {$report->getReason()}";
+    }
+}
+?>
+    </code></pre>
+
+    <h2>3. Client Code</h2>
+    <p>Đăng ký subscription và gửi thông tin về máy chủ:</p>
+    <pre><code>
+navigator.serviceWorker.ready.then((registration) => {
+  return registration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: '&lt;Your_Public_Key&gt;',
+  });
+}).then((subscription) => {
+  // Gửi subscription về máy chủ
+  fetch('/save-subscription', {
+    method: 'POST',
+    body: JSON.stringify(subscription),
+    headers: { 'Content-Type': 'application/json' },
+  });
+});
+    </code></pre>
+
+    <h2>4. Kết quả</h2>
+    <p>Khi server gửi thông báo, Service Worker trên client sẽ nhận và hiển thị nội dung thông báo cho người dùng.</p>
+</body>
+</html>

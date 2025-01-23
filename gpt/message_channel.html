@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MessageChannel in JavaScript</title>
+</head>
+<body>
+    <h1>MessageChannel in JavaScript</h1>
+    <h2>Giới thiệu</h2>
+    <p><code>MessageChannel</code> là một API trong JavaScript cho phép giao tiếp hai chiều giữa các ngữ cảnh như <strong>Main Thread</strong>, <strong>Web Worker</strong>, hoặc <strong>Service Worker</strong>.</p>
+
+    <h2>Cách sử dụng MessageChannel</h2>
+    <h3>1. Tạo và sử dụng MessageChannel</h3>
+    <pre><code>
+// Tạo MessageChannel
+const channel = new MessageChannel();
+
+// Lắng nghe tin nhắn từ port1
+channel.port1.onmessage = (event) => {
+  console.log('Message received on port1:', event.data);
+};
+
+// Gửi tin nhắn từ port2
+channel.port2.postMessage('Hello from port2');
+    </code></pre>
+
+    <h3>2. Giao tiếp giữa Main Thread và Web Worker</h3>
+    <h4>Main Thread:</h4>
+    <pre><code>
+const worker = new Worker('worker.js');
+const channel = new MessageChannel();
+
+// Gửi port2 đến Web Worker
+worker.postMessage('Init communication', [channel.port2]);
+
+// Lắng nghe tin nhắn từ Web Worker qua port1
+channel.port1.onmessage = (event) => {
+  console.log('Message from Worker:', event.data);
+};
+
+// Gửi tin nhắn qua port1
+channel.port1.postMessage('Hello from Main Thread');
+    </code></pre>
+
+    <h4>Web Worker (worker.js):</h4>
+    <pre><code>
+self.onmessage = (event) => {
+  const port = event.ports[0]; // Nhận port2 từ Main Thread
+
+  // Lắng nghe tin nhắn từ Main Thread qua port2
+  port.onmessage = (event) => {
+    console.log('Message from Main Thread:', event.data);
+
+    // Gửi phản hồi
+    port.postMessage('Hello from Worker');
+  };
+};
+    </code></pre>
+
+    <h3>3. Giao tiếp với Service Worker</h3>
+    <h4>Gửi từ Main Thread đến Service Worker:</h4>
+    <pre><code>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then((registration) => {
+    const channel = new MessageChannel();
+
+    // Gửi port2 đến Service Worker
+    registration.active.postMessage('Init communication', [channel.port2]);
+
+    // Lắng nghe phản hồi từ Service Worker qua port1
+    channel.port1.onmessage = (event) => {
+      console.log('Message from Service Worker:', event.data);
+    };
+
+    // Gửi tin nhắn qua port1
+    channel.port1.postMessage('Hello from the page');
+  });
+}
+    </code></pre>
+
+    <h4>Service Worker:</h4>
+    <pre><code>
+self.onmessage = (event) => {
+  const port = event.ports[0]; // Nhận port2 từ Main Thread
+
+  // Lắng nghe tin nhắn qua port2
+  port.onmessage = (event) => {
+    console.log('Message from the page:', event.data);
+
+    // Gửi phản hồi
+    port.postMessage('Hello from Service Worker');
+  };
+};
+    </code></pre>
+
+    <h2>Ưu điểm của MessageChannel</h2>
+    <ul>
+        <li><strong>Giao tiếp hai chiều:</strong> Cung cấp kênh giao tiếp độc lập để gửi và nhận thông điệp.</li>
+        <li><strong>Hiệu quả:</strong> Hỗ trợ truyền cổng (<code>port</code>) giữa các ngữ cảnh mà không cần tạo kết nối mới.</li>
+        <li><strong>Linh hoạt:</strong> Có thể được sử dụng giữa main thread, web workers, service workers hoặc bất kỳ ngữ cảnh nào hỗ trợ <code>postMessage</code>.</li>
+    </ul>
+
+    <h2>Lưu ý khi sử dụng MessageChannel</h2>
+    <ul>
+        <li><strong>Truyền port:</strong> Đảm bảo truyền đúng cổng (<code>port</code>) đến ngữ cảnh mong muốn.</li>
+        <li><strong>Bảo mật:</strong> Xác minh nội dung thông điệp và nguồn gốc trước khi xử lý.</li>
+        <li><strong>Đóng port:</strong> Gọi <code>port.close()</code> khi không còn sử dụng để tiết kiệm tài nguyên.</li>
+    </ul>
+</body>
+</html>

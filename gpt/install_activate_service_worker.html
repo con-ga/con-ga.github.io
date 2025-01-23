@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Worker Events</title>
+</head>
+<body>
+    <h1>Sự kiện Install và Activate trong Service Worker</h1>
+    <h2>1. Sự kiện <code>install</code></h2>
+    <p><strong>Khi nào xảy ra:</strong> Sự kiện này được kích hoạt ngay khi trình duyệt tải xuống và cài đặt Service Worker mới.</p>
+    <p><strong>Mục đích:</strong></p>
+    <ul>
+        <li>Thực hiện các tác vụ khởi tạo, ví dụ: tải và lưu trữ các tài nguyên cần thiết vào bộ nhớ cache để ứng dụng hoạt động ngoại tuyến.</li>
+        <li>Đảm bảo tài nguyên được chuẩn bị sẵn sàng trước khi Service Worker chuyển sang trạng thái <code>activate</code>.</li>
+    </ul>
+    <pre><code>
+self.addEventListener('install', (event) => {
+    console.log('Service Worker installing...');
+    event.waitUntil(
+        caches.open('v1').then((cache) => {
+            return cache.addAll([
+                '/index.html',
+                '/styles.css',
+                '/script.js',
+                '/logo.png'
+            ]);
+        })
+    );
+});
+    </code></pre>
+
+    <h2>2. Sự kiện <code>activate</code></h2>
+    <p><strong>Khi nào xảy ra:</strong> Sự kiện này được kích hoạt sau khi Service Worker mới được cài đặt thành công và chuẩn bị thay thế Service Worker cũ (nếu có).</p>
+    <p><strong>Mục đích:</strong></p>
+    <ul>
+        <li>Dọn dẹp các dữ liệu cũ không còn cần thiết, chẳng hạn như xóa các cache cũ.</li>
+        <li>Đảm bảo Service Worker mới hoạt động đầy đủ.</li>
+    </ul>
+    <pre><code>
+self.addEventListener('activate', (event) => {
+    console.log('Service Worker activating...');
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cache) => {
+                    if (cache !== 'v1') {
+                        console.log('Deleting old cache:', cache);
+                        return caches.delete(cache);
+                    }
+                })
+            );
+        })
+    );
+});
+    </code></pre>
+
+    <h2>Tóm tắt mối liên hệ giữa <code>install</code> và <code>activate</code></h2>
+    <ul>
+        <li><strong><code>install</code>:</strong> Chuẩn bị tài nguyên ban đầu (cache, thiết lập).</li>
+        <li><strong><code>activate</code>:</strong> Dọn dẹp các dữ liệu cũ và đảm bảo Service Worker mới hoạt động hiệu quả.</li>
+    </ul>
+</body>
+</html>

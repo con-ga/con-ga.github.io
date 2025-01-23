@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vị trí gọi saveToIndexedDB</title>
+</head>
+<body>
+    <h1>Vị trí gọi hàm <code>saveToIndexedDB</code> trong Service Worker</h1>
+    <p>Hàm <code>saveToIndexedDB</code> nên được gọi ở phần <strong>main thread</strong> hoặc từ Service Worker trong trường hợp bạn muốn lưu dữ liệu vào IndexedDB khi thiết bị đang offline hoặc có tác vụ cần xử lý sau đó.</p>
+
+    <h2>Tình huống thực tế để gọi hàm <code>saveToIndexedDB</code></h2>
+    <ol>
+        <li><strong>Khi người dùng thực hiện một hành động nhưng không có mạng:</strong>
+            <ul>
+                <li>Ví dụ: Gửi một biểu mẫu, tạo một bài đăng, hoặc thực hiện các thay đổi trên ứng dụng.</li>
+                <li>Nếu mạng bị gián đoạn, bạn có thể lưu dữ liệu đó vào IndexedDB để đồng bộ sau.</li>
+            </ul>
+        </li>
+        <li><strong>Trong Service Worker:</strong>
+            <ul>
+                <li>Khi dữ liệu đến từ một thông báo push, một sự kiện <code>fetch</code>, hoặc một sự kiện khác trong Service Worker.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Cách sử dụng <code>saveToIndexedDB</code> trong Main Thread</h2>
+    <p>Ví dụ: Người dùng gửi một biểu mẫu, nhưng mạng bị mất kết nối.</p>
+    <pre><code>
+document.querySelector('#submit-form').addEventListener('click', async () => {
+  const formData = {
+    name: document.querySelector('#name').value,
+    message: document.querySelector('#message').value,
+  };
+
+  // Kiểm tra nếu thiết bị offline
+  if (!navigator.onLine) {
+    console.log('Offline: Saving data to IndexedDB for later sync.');
+    saveToIndexedDB(formData); // Lưu vào IndexedDB
+  } else {
+    try {
+      // Gửi dữ liệu nếu online
+      const response = await fetch('/sync-endpoint', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        console.log('Data sent successfully!');
+      }
+    } catch (error) {
+      console.error('Error sending data, saving to IndexedDB:', error);
+      saveToIndexedDB(formData); // Lưu vào IndexedDB nếu xảy ra lỗi
+    }
+  }
+});
+    </code></pre>
+
+    <h2>Cách sử dụng <code>saveToIndexedDB</code> trong Service Worker</h2>
+    <p>Khi nhận được dữ liệu từ một sự kiện, như push notification hoặc fetch:</p>
+    <pre><code>
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.endsWith('/sync-endpoint')) {
+    event.respondWith(
+      (async () => {
+        try {
+          // Thử gửi yêu cầu nếu online
+          const response = await fetch(event.request);
+          return response;
+        } catch (error) {
+          console.error('Fetch failed, saving data for sync later:', error);
+
+          // Nếu thất bại, lưu dữ liệu yêu cầu vào IndexedDB
+          const clonedRequest = event.request.clone();
+          const data = await clonedRequest.json();
+          saveToIndexedDB(data);
+          
+          return new Response(JSON.stringify({ success: false, message: 'Saved for sync later.' }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+      })()
+    );
+  }
+});
+    </code></pre>
+
+    <h2>Tóm lại</h2>
+    <ul>
+        <li><strong>Main Thread:</strong> Gọi <code>saveToIndexedDB</code> khi thực hiện các hành động không thể gửi trực tiếp do offline.</li>
+        <li><strong>Service Worker:</strong> Gọi <code>saveToIndexedDB</code> khi bắt các sự kiện như <code>fetch</code>, <code>sync</code>, hoặc <code>push</code> mà không thể xử lý trực tiếp do vấn đề mạng.</li>
+    </ul>
+</body>
+</html>

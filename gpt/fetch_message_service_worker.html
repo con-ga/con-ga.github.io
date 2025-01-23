@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch and Message Events in Service Worker</title>
+</head>
+<body>
+    <h1>Fetch and Message Events in Service Worker</h1>
+
+    <h2>1. Sự kiện Fetch</h2>
+    <p>Sự kiện <code>fetch</code> được kích hoạt khi ứng dụng gửi yêu cầu mạng. Service Worker có thể chặn, xử lý, hoặc thay đổi phản hồi cho các yêu cầu này.</p>
+    <h3>Ví dụ: Cache-First Strategy</h3>
+    <pre><code>
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
+    </code></pre>
+
+    <h3>Ví dụ: Network-First Strategy</h3>
+    <pre><code>
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        const responseClone = response.clone();
+        caches.open('dynamic-cache').then((cache) => {
+          cache.put(event.request, responseClone);
+        });
+        return response;
+      })
+      .catch(() => {
+        return caches.match(event.request);
+      })
+  );
+});
+    </code></pre>
+
+    <h2>2. Sự kiện Message</h2>
+    <p>Sự kiện <code>message</code> cho phép giao tiếp giữa Service Worker và các thành phần khác (như main thread hoặc web worker).</p>
+    <h3>Ví dụ: Lắng nghe và phản hồi thông điệp</h3>
+    <h4>Service Worker:</h4>
+    <pre><code>
+self.addEventListener('message', (event) => {
+  console.log('Message received in Service Worker:', event.data);
+  event.source.postMessage(`Hello, you sent: ${event.data}`);
+});
+    </code></pre>
+
+    <h4>Main Thread:</h4>
+    <pre><code>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then((registration) => {
+    registration.active.postMessage('Hello from the main thread!');
+  });
+
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    console.log('Message from Service Worker:', event.data);
+  });
+}
+    </code></pre>
+
+    <h2>3. Kết hợp Fetch và Message</h2>
+    <p>Có thể sử dụng <code>message</code> để yêu cầu Service Worker thay đổi cách xử lý các yêu cầu mạng trong sự kiện <code>fetch</code>.</p>
+    <h3>Ví dụ: Kích hoạt chế độ chỉ offline</h3>
+    <h4>Service Worker:</h4>
+    <pre><code>
+let offlineMode = false;
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'enableOffline') {
+    offlineMode = true;
+  } else if (event.data === 'disableOffline') {
+    offlineMode = false;
+  }
+});
+
+self.addEventListener('fetch', (event) => {
+  if (offlineMode) {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || new Response('Offline Mode: Resource not available', { status: 404 });
+      })
+    );
+  }
+});
+    </code></pre>
+
+    <h4>Main Thread:</h4>
+    <pre><code>
+navigator.serviceWorker.ready.then((registration) => {
+  registration.active.postMessage('enableOffline'); // Kích hoạt chế độ offline
+});
+
+navigator.serviceWorker.ready.then((registration) => {
+  registration.active.postMessage('disableOffline'); // Hủy kích hoạt chế độ offline
+});
+    </code></pre>
+</body>
+</html>

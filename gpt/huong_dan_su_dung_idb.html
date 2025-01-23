@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn sử dụng idb</title>
+</head>
+<body>
+    <h1>Hướng dẫn sử dụng idb</h1>
+    <p><strong>idb</strong> là một thư viện JavaScript nhẹ giúp làm việc với IndexedDB trở nên đơn giản và dễ hiểu hơn.</p>
+    <h2>1. Cài đặt idb</h2>
+    <pre>
+# Cài đặt bằng npm:
+npm install idb
+
+# Hoặc sử dụng qua CDN:
+&lt;script type="module"&gt;
+  import { openDB } from 'https://cdn.jsdelivr.net/npm/idb@7/build/esm/index.js';
+&lt;/script&gt;
+    </pre>
+    <h2>2. Tạo hoặc mở Database</h2>
+    <pre>
+import { openDB } from 'idb';
+
+const dbPromise = openDB('my-database', 1, {
+  upgrade(db) {
+    // Tạo object store nếu chưa có
+    if (!db.objectStoreNames.contains('users')) {
+      db.createObjectStore('users', { keyPath: 'id', autoIncrement: true });
+    }
+  },
+});
+    </pre>
+    <h2>3. Thêm dữ liệu vào Object Store</h2>
+    <pre>
+async function addUser(user) {
+  const db = await dbPromise;
+  await db.add('users', user);
+}
+
+// Thêm một user
+addUser({ id: 1, name: 'John Doe', age: 30 });
+    </pre>
+    <h2>4. Lấy dữ liệu từ Object Store</h2>
+    <pre>
+async function getUser(id) {
+  const db = await dbPromise;
+  return await db.get('users', id);
+}
+
+async function getAllUsers() {
+  const db = await dbPromise;
+  return await db.getAll('users');
+}
+
+// Lấy dữ liệu
+getUser(1).then(user =&gt; console.log(user));
+getAllUsers().then(users =&gt; console.log(users));
+    </pre>
+    <h2>5. Cập nhật dữ liệu</h2>
+    <pre>
+async function updateUser(user) {
+  const db = await dbPromise;
+  await db.put('users', user);
+}
+
+// Cập nhật user với id = 1
+updateUser({ id: 1, name: 'Jane Doe', age: 25 });
+    </pre>
+    <h2>6. Xóa dữ liệu</h2>
+    <pre>
+async function deleteUser(id) {
+  const db = await dbPromise;
+  await db.delete('users', id);
+}
+
+async function clearAllUsers() {
+  const db = await dbPromise;
+  await db.clear('users');
+}
+
+// Xóa user với id = 1
+deleteUser(1);
+
+// Xóa tất cả users
+clearAllUsers();
+    </pre>
+    <h2>7. Duyệt dữ liệu bằng con trỏ (Cursor)</h2>
+    <pre>
+async function iterateUsers() {
+  const db = await dbPromise;
+  const tx = db.transaction('users', 'readonly');
+  const store = tx.objectStore('users');
+
+  let cursor = await store.openCursor();
+  while (cursor) {
+    console.log(cursor.key, cursor.value);
+    cursor = await cursor.continue();
+  }
+}
+iterateUsers();
+    </pre>
+    <h2>8. Các thao tác nâng cao</h2>
+    <p>Đếm số lượng bản ghi:</p>
+    <pre>
+async function countUsers() {
+  const db = await dbPromise;
+  return await db.count('users');
+}
+countUsers().then(count =&gt; console.log(`Total users: ${count}`));
+    </pre>
+    <p>Sử dụng Index (chỉ mục):</p>
+    <pre>
+const dbPromise = openDB('my-database', 1, {
+  upgrade(db) {
+    if (!db.objectStoreNames.contains('users')) {
+      const store = db.createObjectStore('users', { keyPath: 'id' });
+      store.createIndex('name', 'name'); // Tạo index theo tên
+    }
+  },
+});
+
+async function findUserByName(name) {
+  const db = await dbPromise;
+  return await db.getFromIndex('users', 'name', name);
+}
+    </pre>
+    <p>Hy vọng bạn sử dụng <strong>idb</strong> hiệu quả hơn!</p>
+</body>
+</html>

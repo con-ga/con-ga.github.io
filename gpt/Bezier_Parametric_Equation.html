@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phương trình tham số Bezier</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1 { color: #333; }
+        code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Phương trình tham số của đường Bezier bậc ba</h1>
+    <p>Dựa trên các điểm điều khiển <code>P₀(x₁, y₁)</code>, <code>P₁(x₂, y₂)</code>, <code>P₂(x₃, y₃)</code>, và <code>P₃(x₄, y₄)</code>, phương trình tham số của đường Bezier bậc ba là:</p>
+    <h2>Phương trình tham số <code>x(t)</code>:</h2>
+    <pre>
+x(t) = aₓ ⋅ t³ + bₓ ⋅ t² + cₓ ⋅ t + dₓ
+    </pre>
+    <p>Trong đó:</p>
+    <ul>
+        <li><code>aₓ = -x₁ + 3x₂ - 3x₃ + x₄</code></li>
+        <li><code>bₓ = 3x₁ - 6x₂ + 3x₃</code></li>
+        <li><code>cₓ = -3x₁ + 3x₂</code></li>
+        <li><code>dₓ = x₁</code></li>
+    </ul>
+
+    <h2>Phương trình tham số <code>y(t)</code>:</h2>
+    <pre>
+y(t) = aᵧ ⋅ t³ + bᵧ ⋅ t² + cᵧ ⋅ t + dᵧ
+    </pre>
+    <p>Trong đó:</p>
+    <ul>
+        <li><code>aᵧ = -y₁ + 3y₂ - 3y₃ + y₄</code></li>
+        <li><code>bᵧ = 3y₁ - 6y₂ + 3y₃</code></li>
+        <li><code>cᵧ = -3y₁ + 3y₂</code></li>
+        <li><code>dᵧ = y₁</code></li>
+    </ul>
+</body>
+</html>

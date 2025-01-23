@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự kiện Sync trong Service Worker</title>
+</head>
+<body>
+    <h1>Sự kiện Sync trong Service Worker</h1>
+    <p>Sự kiện <code>sync</code> trong Service Worker được sử dụng để xử lý các tác vụ nền, giúp đảm bảo dữ liệu hoặc tác vụ sẽ được thực hiện ngay cả khi kết nối mạng không ổn định hoặc bị gián đoạn.</p>
+
+    <h2>1. Cách hoạt động của sự kiện Sync</h2>
+    <ol>
+        <li>Khi thiết bị mất kết nối mạng, các tác vụ nền có thể bị tạm dừng.</li>
+        <li>Service Worker đăng ký một sự kiện <code>sync</code> bằng cách sử dụng <code>BackgroundSync</code> API.</li>
+        <li>Khi kết nối mạng được khôi phục, sự kiện <code>sync</code> sẽ được kích hoạt.</li>
+    </ol>
+
+    <h2>2. Cách sử dụng sự kiện Sync</h2>
+
+    <h3>Main Thread (Đăng ký Sync)</h3>
+    <pre><code>
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+  navigator.serviceWorker.ready.then((registration) => {
+    return registration.sync.register('sync-data'); // Đăng ký sự kiện sync với tên "sync-data"
+  }).then(() => {
+    console.log('Sync event registered!');
+  }).catch((error) => {
+    console.error('Failed to register sync:', error);
+  });
+}
+    </code></pre>
+
+    <h3>Service Worker (Lắng nghe sự kiện Sync)</h3>
+    <pre><code>
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-data') { // Kiểm tra tên tag của sự kiện
+    event.waitUntil(syncDataWithServer()); // Đảm bảo hoàn thành tác vụ trước khi Service Worker kết thúc
+  }
+});
+
+async function syncDataWithServer() {
+  try {
+    const response = await fetch('/sync-endpoint', {
+      method: 'POST',
+      body: JSON.stringify({ message: 'Syncing data' }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      console.log('Data synced successfully!');
+    } else {
+      console.error('Failed to sync data:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error syncing data:', error);
+  }
+}
+    </code></pre>
+
+    <h2>3. Ứng dụng của sự kiện Sync</h2>
+    <ul>
+        <li><strong>Gửi dữ liệu ngoại tuyến:</strong> Đồng bộ dữ liệu khi mạng quay lại.</li>
+        <li><strong>Cập nhật dữ liệu nền:</strong> Tự động lấy và cập nhật dữ liệu khi có mạng.</li>
+        <li><strong>Bảo đảm tính liên tục:</strong> Đảm bảo hoàn thành các tác vụ quan trọng như thanh toán.</li>
+    </ul>
+
+    <h2>4. Kết hợp với IndexedDB</h2>
+    <p>Bạn có thể lưu trữ dữ liệu trong <code>IndexedDB</code> để đồng bộ khi offline:</p>
+    <pre><code>
+// Lưu dữ liệu vào IndexedDB khi offline
+function saveToIndexedDB(data) {
+  const dbRequest = indexedDB.open('sync-db', 1);
+
+  dbRequest.onupgradeneeded = (event) => {
+    const db = event.target.result;
+    db.createObjectStore('sync-store', { autoIncrement: true });
+  };
+
+  dbRequest.onsuccess = (event) => {
+    const db = event.target.result;
+    const transaction = db.transaction('sync-store', 'readwrite');
+    const store = transaction.objectStore('sync-store');
+    store.add(data);
+  };
+}
+
+// Xử lý dữ liệu từ IndexedDB khi mạng quay lại
+async function processSyncQueue() {
+  const dbRequest = indexedDB.open('sync-db', 1);
+
+  dbRequest.onsuccess = async (event) => {
+    const db = event.target.result;
+    const transaction = db.transaction('sync-store', 'readonly');
+    const store = transaction.objectStore('sync-store');
+
+    const allRecords = store.getAll();
+    allRecords.onsuccess = async () => {
+      for (const record of allRecords.result) {
+        await fetch('/sync-endpoint', {
+          method: 'POST',
+          body: JSON.stringify(record),
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    };
+  };
+}
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-data') {
+    event.waitUntil(processSyncQueue());
+  }
+});
+    </code></pre>
+
+    <h2>Kết luận</h2>
+    <p>Sự kiện <code>sync</code> là một công cụ mạnh mẽ để xử lý các tác vụ nền và đồng bộ dữ liệu. Kết hợp với <code>IndexedDB</code> hoặc <code>Cache API</code> giúp đảm bảo dữ liệu được xử lý ngay cả khi mạng không ổn định.</p>
+</body>
+</html>
