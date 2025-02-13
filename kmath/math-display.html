@@ -1,0 +1,45 @@
+<html>
+<body>
+<script src ="math-display.js"></script>
+<canvas style="background:yellow" id =mycanvas width=300 height = 250>
+</canvas><script>
+kmath.ctx = document.getElementById("mycanvas").getContext("2d");
+kmath.ctx.textBaseline = "top";
+kmath.ctx.lineWidth = 1;
+kmath.strkclr = "rgba(0,0,0,0.3)";
+kmath.txtclr = "blue";
+kmath.ctx.strokeStyle = kmath.strkclr;
+kmath.ctx.fillStyle = kmath.txtclr;    
+let md = {
+    type:"text",text:"pham van"}
+let md2 = {type : "frac", tu :{type:"text", text : "y + z + 12"}, mau : {type: "text", text: "u + t"}};
+
+let md3 =
+{
+    type : "frac",
+    tu: {type:"text", text:"x + 1"
+    }, mau : {type : "frac", tu :{type:"text", text : "y + z + 12"}, mau : {type: "text", text: "u + t"}}
+};
+let md4 = {type:"sup", coso : {type:"text",text:"x"},
+    chiso:{type:"text",text:"3"}};
+let md5 = {type:"sup", coso : {type:"text",text:"x"},
+    chiso:{type:"frac",tu:{type:"text",text:"u + v + 13"},
+          mau:{type:"text",text:"3 + 5"}}
+};
+let md6 = {type:"row",items:[
+             {type:"text",text:"x + 1 + "},
+             {type:"frac",tu:{type:"text",text:"5"},
+             mau:{type:"sup",coso:{type:"text",text:"2 * x"},
+                chiso:{type:"row",items:[{type:"frac",tu:{type:"text",text:"5"},mau:{type:"text",text:"7"}},{type:"text",text:" + z + 3"}]}}
+             }]
+          };
+mdd = kmath.draw(md6, 35);
+console.log(JSON.stringify(md));
+let x0 = 10, y0 = 10;
+kmath.ctx.fillRect(x0,y0,5,5);
+kmath.display(mdd,x0,y0);
+</script>
+</body>    
+    
+    
+</html>

@@ -1,0 +1,44 @@
+<html>
+<body>
+<canvas id=mycanvas width=400
+height=300 style="background:yellow">
+    </canvas>
+<script>
+const baseline = [
+    "top", "bottom", "middle",
+    "hanging", "alphabetic", "baseline"];
+const ctx = document.getElementById("mycanvas").getContext("2d");
+let txt = "pamvanoa";
+ctx.textBaseline = "baseline";
+let x = 5, y = 20;
+const fs=25;
+ctx.font = fs+"px Arial";
+ctx.lineWidth=1;
+ctx.strokeStyle="red";
+baseline.forEach(bl=>{
+    ctx.moveTo(x,y);
+    ctx.lineTo(x+300,y);
+    ctx.stroke();
+    let x0 = x;
+    const chars = (txt /*+ " " + bl*/).split("");
+    chars.forEach((ch,i)=>{
+        ctx.fillStyle = i % 2 ? "magenta" : "blue";
+        ctx.textBaseline=bl;
+        ctx.fillText(ch,x0,y);
+        x0+=ctx.measureText(ch).width;
+    });
+    y+=fs*2;
+});
+/*ctx.moveTo(x, y);
+ctx.lineTo(x+300,y);
+ctx.strokeStyle="red";
+ctx.stroke();
+txt.forEach((ch,i)=>{
+    if (i % 2 == 1) return;
+    ctx.fillText(ch, x, y);
+    x += ctx.measureText(ch).width;
+});*/
+
+</script>
+</body>
+</html>
