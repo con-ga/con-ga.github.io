@@ -31,7 +31,7 @@ class BangMa {
         this.khongDauMu = m;
     }    
 }
-class Unicode extends BangMa {
+export class Unicode extends BangMa {
     constructor () {
         super();
 const nguyenAm =
