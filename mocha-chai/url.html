@@ -1,0 +1,23 @@
+<head>
+<link href="
+https://cdn.jsdelivr.net/npm/mocha@11.7.5/mocha.min.css
+" rel="stylesheet">
+</head>
+<body>
+<div id=mocha></div>
+<script type="module">
+import "https://esm.sh/mocha@11.7.5/mocha.js";
+</script>
+<script type="module">
+mocha.setup('bdd');
+  import { expect } from 'https://cdn.jsdelivr.net/npm/chai@5.1.1/+esm';
+describe("cộng",function() {
+
+  it("1+1=2",function() {
+  expect(1 + 1).to.equal(2);
+  expect(2*3).to.equal(6);
+  });
+});
+mocha.run();
+</script>
+</body>
