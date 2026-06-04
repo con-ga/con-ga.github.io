@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Case: Custom Event Bubbling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        /* Style cho cây HTML */
+        .node {
+            padding: 20px;
+            margin: 10px 0;
+            border: 2px dashed #ccc;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        #root-node { background-color: #ffebee; border-color: #ef5350; }
+        #branch-node { background-color: #e8f5e9; border-color: #66bb6a; margin-left: 20px; }
+        #leaf-node { background-color: #e3f2fd; border-color: #42a5f5; margin-left: 40px; }
+        
+        .node-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #555; }
+        
+        /* Khu vực hiển thị Log */
+        #log-panel {
+            margin-top: 20px;
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .log-entry { margin-bottom: 5px; border-left: 3px solid #a6e22e; padding-left: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Demo: Custom Event Bubbling</h2>
+    <p>Bộ lắng nghe sự kiện (Listener) chỉ được đặt tại <strong>Nút Gốc (Root)</strong>. Khi bạn click nút kích hoạt ở bất kỳ nút con nào, sự kiện sẽ "nổi bọt" lên trên.</p>
+
+    <div id="root-node" class="node">
+        <span class="node-title">🔴 Nút Gốc (Root Node) - Nơi đặt Listener</span>
+        <button onclick="triggerEvent('root-node', 'Dữ liệu từ Gốc')">Dispatch tại Gốc</button>
+
+        <div id="branch-node" class="node">
+            <span class="node-title">🟢 Nút Nhánh (Branch Node)</span>
+            <button onclick="triggerEvent('branch-node', 'Dữ liệu từ Nhánh')">Dispatch tại Nhánh</button>
+
+            <div id="leaf-node" class="node">
+                <span class="node-title">🔵 Nút Lá (Leaf Node)</span>
+                <button onclick="triggerEvent('leaf-node', 'Dữ liệu từ Lá')">Dispatch tại Lá</button>
+            </div>
+        </div>
+    </div>
+
+    <h3>Console Log hiển thị tại Root:</h3>
+    <div id="log-panel">
+        <div style="color: #75715e;">// Log nhận sự kiện sẽ xuất hiện ở đây...</div>
+    </div>
+</div>
+
+<script>
+    // 1. Lấy phần tử trên cùng (Root Node)
+    const rootNode = document.getElementById('root-node');
+    const logPanel = document.getElementById('log-panel');
+
+    // 2. Add Event Listener TRÊN CÙNG (Chỉ lắng nghe tại Root)
+    rootNode.addEventListener('pingEvent', (event) => {
+        // Tạo một dòng log mới
+        const newLog = document.createElement('div');
+        newLog.className = 'log-entry';
+        
+        // Cấu trúc log để bạn thấy rõ cơ chế:
+        newLog.innerHTML = `
+            <strong>Sự kiện nhận được!</strong><br>
+            - Nơi phát ra gốc (target): <span style="color:#66d9ef">${event.target.id}</span><br>
+            - Nơi đang nhận (currentTarget): <span style="color:#f92672">${event.currentTarget.id}</span><br>
+            - Data đính kèm (detail): <span style="color:#e6db74">"${event.detail.message}"</span>
+        `;
+        
+        logPanel.appendChild(newLog);
+        logPanel.scrollTop = logPanel.scrollHeight; // Cuộn log xuống dưới cùng
+    });
+
+    // 3. Hàm kích hoạt và dispatch event tại từng Node cụ thể
+    function triggerEvent(nodeId, customMessage) {
+        // Tìm đúng node được click để dispatch
+        const targetNode = document.getElementById(nodeId);
+
+        // Tạo CustomEvent với tùy chọn bubbles: true
+        const myCustomEvent = new CustomEvent('pingEvent', {
+            detail: { message: customMessage },
+            bubbles: true,      // QUAN TRỌNG: Cho phép sự kiện nổi bọt lên các thẻ cha
+            cancelable: true
+        });
+
+        // Tiến hành dispatch từ node đó
+        targetNode.dispatchEvent(myCustomEvent);
+    }
+</script>
+
+</body>
+</html>
