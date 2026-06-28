@@ -73,8 +73,8 @@ class Progress extends HTMLElement {
     const rect = this.getBoundingClientRect();
     // Tránh set width/height = 0 nếu element chưa render ẩn
     //alert(rect.width+","+rect.height);
-    this.canvas.style.width = rect.width || 200;
-    this.canvas.style.height = rect.height || 200;
+    this.canvas.width = rect.width || 200;
+    this.canvas.height = rect.height || 200;
   }
 
   // Getter / Setter cho percent
