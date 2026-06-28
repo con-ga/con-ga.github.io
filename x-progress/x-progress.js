@@ -15,8 +15,8 @@ class Progress extends HTMLElement {
     this.ctx = this.canvas.getContext('2d');
 
     // Mặc định kích thước canvas bên trong nếu không định nghĩa ngoài
-    this.canvas.style.width = 200;
-    this.canvas.style.height = 200;
+    this.canvas.width = 200;
+    this.canvas.height = 200;
 
     // 3. Thêm style cơ bản để phần tử hiển thị dạng inline-block giống canvas gốc
     const style = document.createElement('style');
@@ -72,8 +72,8 @@ class Progress extends HTMLElement {
     const rect = this.getBoundingClientRect();
     // Tránh set width/height = 0 nếu element chưa render ẩn
     alert(rect.width+","+rect.height);
-    this.canvas.style.width = rect.width || 200;
-    this.canvas.style.height = rect.height || 200;
+    this.canvas.width = rect.width || 200;
+    this.canvas.height = rect.height || 200;
   }
 
   // Getter / Setter cho percent
