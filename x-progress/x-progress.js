@@ -129,6 +129,9 @@ class Progress extends HTMLElement {
     this.ctx.stroke();
   }
 }
-
+try {
 // Đăng ký thẻ độc lập hoàn toàn không cần { extends }
 customElements.define('x-progress', Progress);
+  catch(e) {
+alert (e.message);
+      };
