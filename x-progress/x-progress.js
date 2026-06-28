@@ -132,6 +132,7 @@ class Progress extends HTMLElement {
 try {
 // Đăng ký thẻ độc lập hoàn toàn không cần { extends }
 customElements.define('x-progress', Progress);
+  alert("defined class custElm");
       }  catch(e) {
 alert (e.message);
       };
