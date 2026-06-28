@@ -15,8 +15,8 @@ class Progress extends HTMLElement {
     this.ctx = this.canvas.getContext('2d');
 
     // Mặc định kích thước canvas bên trong nếu không định nghĩa ngoài
-    this.canvas.width = 200;
-    this.canvas.height = 200;
+    this.canvas.style.width = 200;
+    this.canvas.style.height = 200;
 
     // 3. Thêm style cơ bản để phần tử hiển thị dạng inline-block giống canvas gốc
     const style = document.createElement('style');
