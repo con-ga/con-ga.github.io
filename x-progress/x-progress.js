@@ -132,6 +132,6 @@ class Progress extends HTMLElement {
 try {
 // Đăng ký thẻ độc lập hoàn toàn không cần { extends }
 customElements.define('x-progress', Progress);
-  catch(e) {
+      }  catch(e) {
 alert (e.message);
       };
