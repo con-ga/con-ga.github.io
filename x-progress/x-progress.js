@@ -1,3 +1,4 @@
+alert(123);
 class Progress extends HTMLElement {
   static get observedAttributes() {
     return ['percent', 'color'];
