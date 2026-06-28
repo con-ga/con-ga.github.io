@@ -71,7 +71,7 @@ class Progress extends HTMLElement {
   resizeCanvas() {
     const rect = this.getBoundingClientRect();
     // Tránh set width/height = 0 nếu element chưa render ẩn
-    alert(rect.width+","+rect.height);
+    //alert(rect.width+","+rect.height);
     this.canvas.width = rect.width || 200;
     this.canvas.height = rect.height || 200;
   }
